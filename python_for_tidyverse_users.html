@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python for Tidyverse Users — Complete Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf9f7;
+  --bg-code: #1e1e2e;
+  --bg-card: #ffffff;
+  --bg-r: #276DC3;
+  --bg-py: #FFD43B;
+  --text-r: #ffffff;
+  --text-py: #1a1a1a;
+  --accent: #e05d44;
+  --accent2: #2563eb;
+  --text: #1a1a1a;
+  --text-muted: #64748b;
+  --border: #e2e0dc;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg: 0 10px 30px rgba(0,0,0,0.08);
+  --radius: 10px;
+  --font-body: 'DM Sans', sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+/* ── NAV ── */
+.toc-sidebar {
+  position: fixed; left: 0; top: 0; bottom: 0;
+  width: 280px; background: #1a1a2e; color: #cbd5e1;
+  overflow-y: auto; padding: 24px 0; z-index: 100;
+  border-right: 1px solid #2d2d4a;
+  transition: transform 0.3s;
+}
+.toc-sidebar.collapsed { transform: translateX(-280px); }
+.toc-logo {
+  font-family: var(--font-mono); font-size: 13px;
+  font-weight: 600; color: #FFD43B; padding: 0 20px 20px;
+  border-bottom: 1px solid #2d2d4a; margin-bottom: 12px;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.toc-logo span { color: #64B5F6; }
+.toc-section {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px;
+  color: #64748b; padding: 14px 20px 6px; font-weight: 600;
+}
+.toc-link {
+  display: block; padding: 7px 20px 7px 28px;
+  color: #94a3b8; text-decoration: none; font-size: 13.5px;
+  border-left: 3px solid transparent; transition: all 0.15s;
+}
+.toc-link:hover, .toc-link.active {
+  color: #e2e8f0; background: rgba(255,255,255,0.04);
+  border-left-color: #FFD43B;
+}
+
+/* ── MAIN ── */
+.main { margin-left: 280px; max-width: 920px; padding: 40px 48px 120px; }
+
+.toggle-toc {
+  display: none; position: fixed; top: 14px; left: 14px; z-index: 200;
+  background: #1a1a2e; color: #FFD43B; border: none; border-radius: 6px;
+  padding: 8px 12px; font-size: 18px; cursor: pointer;
+}
+
+@media (max-width: 960px) {
+  .toc-sidebar { transform: translateX(-280px); }
+  .toc-sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; padding: 32px 20px 100px; }
+  .toggle-toc { display: block; }
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: white; padding: 56px 48px; border-radius: 16px;
+  margin-bottom: 48px; position: relative; overflow: hidden;
+}
+.hero::after {
+  content: ''; position: absolute; top: -60px; right: -60px;
+  width: 260px; height: 260px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,212,59,0.15), transparent 70%);
+}
+.hero h1 {
+  font-family: var(--font-serif); font-size: 38px; font-weight: 700;
+  line-height: 1.2; margin-bottom: 12px;
+}
+.hero p { font-size: 17px; color: #94a3b8; max-width: 600px; }
+.hero-badges { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 14px; border-radius: 20px; font-size: 12.5px;
+  font-weight: 600; letter-spacing: 0.3px;
+}
+.badge-r { background: var(--bg-r); color: var(--text-r); }
+.badge-py { background: var(--bg-py); color: var(--text-py); }
+.badge-new { background: var(--accent); color: white; }
+
+/* ── TYPOGRAPHY ── */
+h2 {
+  font-family: var(--font-serif); font-size: 30px; font-weight: 700;
+  margin: 56px 0 8px; padding-top: 24px;
+  border-top: 2px solid var(--border);
+}
+h2:first-of-type { border-top: none; margin-top: 0; }
+h3 {
+  font-family: var(--font-serif); font-size: 22px; font-weight: 600;
+  margin: 36px 0 12px; color: #334155;
+}
+h4 {
+  font-family: var(--font-body); font-size: 16px; font-weight: 700;
+  margin: 24px 0 8px; color: #475569;
+  text-transform: uppercase; letter-spacing: 0.5px; font-size: 13px;
+}
+p { margin-bottom: 14px; }
+.subtitle { color: var(--text-muted); font-size: 15px; margin-bottom: 28px; }
+
+/* ── CODE BLOCKS ── */
+.code-compare {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow-lg); margin: 20px 0 28px;
+}
+@media (max-width: 700px) { .code-compare { grid-template-columns: 1fr; } }
+
+.code-panel { position: relative; }
+.code-label {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 16px; font-family: var(--font-mono);
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.code-label-r { background: var(--bg-r); color: var(--text-r); }
+.code-label-py { background: #306998; color: #FFD43B; }
+
+pre {
+  background: var(--bg-code); color: #cdd6f4; margin: 0;
+  padding: 16px 18px; font-family: var(--font-mono);
+  font-size: 13.5px; line-height: 1.65; overflow-x: auto;
+  tab-size: 4;
+}
+code {
+  font-family: var(--font-mono); font-size: 13.5px;
+}
+p code, li code {
+  background: #f1f0ee; padding: 2px 7px; border-radius: 4px;
+  font-size: 13px; color: #c7254e;
+}
+
+/* single code block (no comparison) */
+.code-single {
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow); margin: 16px 0 24px;
+}
+.code-single .code-label { background: #306998; color: #FFD43B; }
+
+/* ── CALLOUTS ── */
+.callout {
+  padding: 18px 20px; border-radius: var(--radius);
+  margin: 20px 0 24px; font-size: 14.5px;
+  border-left: 4px solid;
+}
+.callout-tip { background: #f0fdf4; border-color: #22c55e; }
+.callout-warn { background: #fffbeb; border-color: #f59e0b; }
+.callout-info { background: #eff6ff; border-color: #3b82f6; }
+.callout-title {
+  font-weight: 700; margin-bottom: 4px; font-size: 13px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.callout-tip .callout-title { color: #16a34a; }
+.callout-warn .callout-title { color: #d97706; }
+.callout-info .callout-title { color: #2563eb; }
+
+/* ── TABLES ── */
+.table-wrap {
+  overflow-x: auto; margin: 16px 0 24px;
+  border-radius: var(--radius); box-shadow: var(--shadow);
+}
+table {
+  width: 100%; border-collapse: collapse; font-size: 14px;
+  background: var(--bg-card);
+}
+th {
+  background: #f8fafc; padding: 10px 16px; text-align: left;
+  font-weight: 600; font-size: 12px; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--text-muted);
+  border-bottom: 2px solid var(--border);
+}
+td {
+  padding: 10px 16px; border-bottom: 1px solid #f1f5f9;
+}
+tr:last-child td { border-bottom: none; }
+td code { font-size: 12.5px; }
+
+/* ── CHAPTER CARD ── */
+.chapter-card {
+  background: var(--bg-card); border-radius: var(--radius);
+  padding: 28px 32px; margin: 24px 0;
+  box-shadow: var(--shadow); border: 1px solid var(--border);
+}
+
+/* ── PROGRESS BAR ── */
+.progress-bar {
+  position: fixed; top: 0; left: 280px; right: 0; height: 3px;
+  z-index: 99; background: transparent;
+}
+.progress-fill {
+  height: 100%; width: 0%; background: linear-gradient(90deg, #FFD43B, #e05d44);
+  transition: width 0.1s;
+}
+@media (max-width: 960px) { .progress-bar { left: 0; } }
+
+ul, ol { margin: 8px 0 16px 24px; }
+li { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<button class="toggle-toc" id="toggleToc">☰</button>
+
+<!-- ══════════ SIDEBAR ══════════ -->
+<nav class="toc-sidebar" id="tocSidebar">
+  <div class="toc-logo"><span>R →</span> Python</div>
+
+  <div class="toc-section">Foundations</div>
+  <a class="toc-link" href="#ch0">0 — Why Python from R</a>
+  <a class="toc-link" href="#ch1">1 — Setup &amp; Environment</a>
+  <a class="toc-link" href="#ch2">2 — Python Syntax Primer</a>
+  <a class="toc-link" href="#ch3">3 — Data Types &amp; Structures</a>
+
+  <div class="toc-section">Data Wrangling</div>
+  <a class="toc-link" href="#ch4">4 — Pandas = dplyr + tidyr</a>
+  <a class="toc-link" href="#ch5">5 — Selecting &amp; Filtering</a>
+  <a class="toc-link" href="#ch6">6 — Mutating &amp; Summarising</a>
+  <a class="toc-link" href="#ch7">7 — Joins &amp; Reshaping</a>
+  <a class="toc-link" href="#ch8">8 — Strings, Dates, Factors</a>
+
+  <div class="toc-section">ETL &amp; Pipelines</div>
+  <a class="toc-link" href="#ch9">9 — Reading &amp; Writing Data</a>
+  <a class="toc-link" href="#ch10">10 — ETL Pipelines</a>
+  <a class="toc-link" href="#ch11">11 — APIs &amp; Web Scraping</a>
+  <a class="toc-link" href="#ch12">12 — SQL from Python</a>
+
+  <div class="toc-section">Visualisation</div>
+  <a class="toc-link" href="#ch13">13 — matplotlib &amp; seaborn</a>
+  <a class="toc-link" href="#ch14">14 — plotly Interactive</a>
+
+  <div class="toc-section">Statistics &amp; Modelling</div>
+  <a class="toc-link" href="#ch15">15 — Stats &amp; Hypothesis Tests</a>
+  <a class="toc-link" href="#ch16">16 — Regression &amp; ML</a>
+
+  <div class="toc-section">Production</div>
+  <a class="toc-link" href="#ch17">17 — Functions &amp; Scripts</a>
+  <a class="toc-link" href="#ch18">18 — Packaging &amp; Environments</a>
+  <a class="toc-link" href="#ch19">19 — Cheat Sheet</a>
+</nav>
+
+<!-- ══════════ MAIN ══════════ -->
+<div class="main">
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Python for Tidyverse Users</h1>
+  <p>A complete, side-by-side course translating your R/tidyverse fluency into Python/pandas mastery — from first line to production ETL.</p>
+  <div class="hero-badges">
+    <span class="badge badge-r">R / tidyverse</span>
+    <span class="badge badge-py">Python / pandas</span>
+    <span class="badge badge-new">20 Chapters</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch0">Chapter 0 — Why Learn Python When You Know R?</h2>
+<p class="subtitle">You already think in tidy data. Now add a second superpower.</p>
+
+<div class="chapter-card">
+<p>As a tidyverse user you already understand the hardest concepts: tidy data principles, piped transformations, grouped operations, and the grammar of graphics. Python won't replace R — it will complement it. Here's why it's worth adding:</p>
+
+<ul>
+  <li><strong>Engineering integration</strong> — Most production data systems, APIs, and cloud services have Python as a first-class citizen.</li>
+  <li><strong>ML ecosystem</strong> — scikit-learn, PyTorch, TensorFlow, and Hugging Face are Python-native.</li>
+  <li><strong>Web apps &amp; SaaS</strong> — Flask, FastAPI, Streamlit, and Django let you ship products.</li>
+  <li><strong>Job market</strong> — Python consistently tops hiring requirements for data &amp; analytics roles in the UK.</li>
+</ul>
+
+<div class="callout callout-tip">
+  <div class="callout-title">The Good News</div>
+  About 80% of tidyverse operations map directly to pandas. Your mental model transfers — you just need new syntax.
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch1">Chapter 1 — Setup &amp; Environment</h2>
+<p class="subtitle">Getting your Python workspace running — the equivalent of installing R + RStudio + tidyverse.</p>
+
+<h3>1.1 The R → Python Rosetta Stone (Tools)</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>R World</th><th>Python Equivalent</th><th>Notes</th></tr>
+  <tr><td><code>R</code></td><td><code>python</code></td><td>The language itself</td></tr>
+  <tr><td><code>RStudio</code></td><td><code>VS Code</code> or <code>JupyterLab</code></td><td>VS Code + Python extension is closest to RStudio</td></tr>
+  <tr><td><code>CRAN</code></td><td><code>PyPI</code></td><td>Package repository</td></tr>
+  <tr><td><code>install.packages()</code></td><td><code>pip install</code></td><td>Package manager</td></tr>
+  <tr><td><code>library()</code></td><td><code>import</code></td><td>Load a package</td></tr>
+  <tr><td><code>renv</code></td><td><code>venv</code> / <code>conda</code></td><td>Virtual environments</td></tr>
+  <tr><td><code>.Rmd</code> / <code>.qmd</code></td><td><code>.ipynb</code> (Jupyter) / <code>.qmd</code></td><td>Quarto supports both!</td></tr>
+  <tr><td><code>tidyverse</code></td><td><code>pandas</code> + <code>numpy</code></td><td>Core data stack</td></tr>
+  <tr><td><code>ggplot2</code></td><td><code>matplotlib</code> + <code>seaborn</code> / <code>plotly</code></td><td>Visualisation</td></tr>
+</table>
+</div>
+
+<h3>1.2 Installation</h3>
+<div class="code-single">
+<div class="code-label">TERMINAL</div>
+<pre><code># Install Python (Mac/Linux usually have it; Windows → python.org)
+# Then create a virtual environment (like renv):
+python -m venv myproject_env
+source myproject_env/bin/activate   # Mac/Linux
+myproject_env\Scripts\activate      # Windows
+
+# Install the "tidyverse" of Python:
+pip install pandas numpy matplotlib seaborn scipy scikit-learn
+pip install openpyxl xlsxwriter     # Excel support
+pip install sqlalchemy              # SQL support
+pip install requests beautifulsoup4 # APIs & scraping
+pip install jupyterlab              # Notebook interface</code></pre>
+</div>
+
+<h3>1.3 Your First Session</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code>library(tidyverse)
+
+# Everything is loaded — dplyr,
+# ggplot2, tidyr, readr, etc.
+
+# Interactive: RStudio console
+# Scripts: .R files</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code>import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Convention: short aliases
+# pd, np, plt — you'll see these everywhere
+
+# Interactive: Jupyter notebook
+# Scripts: .py files</code></pre>
+  </div>
+</div>
+
+<div class="callout callout-info">
+  <div class="callout-title">Alias Convention</div>
+  <code>import pandas as pd</code> is universal — every tutorial, every StackOverflow answer uses <code>pd</code>. Same for <code>np</code> (numpy), <code>plt</code> (matplotlib), <code>sns</code> (seaborn). Don't fight it!
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch2">Chapter 2 — Python Syntax Primer</h2>
+<p class="subtitle">The biggest "gotchas" when switching from R to Python.</p>
+
+<h3>2.1 Indentation Matters (No Curly Braces)</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code># Braces define blocks
+if (x > 10) {
+  print("big")
+} else {
+  print("small")
+}
+
+for (i in 1:5) {
+  print(i)
+}</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code># Indentation defines blocks (4 spaces)
+if x > 10:
+    print("big")
+else:
+    print("small")
+
+for i in range(1, 6):  # 1 to 5
+    print(i)</code></pre>
+  </div>
+</div>
+
+<h3>2.2 Zero-Indexed (The Big Difference)</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code>x <- c(10, 20, 30)
+x[1]    # 10  (1-indexed)
+x[2:3]  # 20, 30 (inclusive)</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code>x = [10, 20, 30]
+x[0]    # 10  (0-indexed!)
+x[1:3]  # [20, 30] (end exclusive)</code></pre>
+  </div>
+</div>
+
+<div class="callout callout-warn">
+  <div class="callout-title">Index Traps</div>
+  Python uses <strong>0-based indexing</strong> and slices are <strong>start-inclusive, end-exclusive</strong>: <code>x[1:3]</code> returns items at index 1 and 2 (not 3). This is the #1 source of bugs for R users switching to Python.
+</div>
+
+<h3>2.3 Key Syntax Differences</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>Concept</th><th>R</th><th>Python</th></tr>
+  <tr><td>Assignment</td><td><code>x <- 5</code> or <code>x = 5</code></td><td><code>x = 5</code> only</td></tr>
+  <tr><td>Print</td><td><code>print(x)</code> or just <code>x</code></td><td><code>print(x)</code> required in scripts</td></tr>
+  <tr><td>Boolean</td><td><code>TRUE / FALSE</code></td><td><code>True / False</code> (capitalised)</td></tr>
+  <tr><td>NULL / None</td><td><code>NULL</code></td><td><code>None</code></td></tr>
+  <tr><td>NA / NaN</td><td><code>NA</code></td><td><code>np.nan</code> or <code>pd.NA</code></td></tr>
+  <tr><td>Not equal</td><td><code>!=</code></td><td><code>!=</code> (same)</td></tr>
+  <tr><td>And / Or</td><td><code>&amp;</code> / <code>|</code></td><td><code>and</code> / <code>or</code> (scalar), <code>&amp;</code> / <code>|</code> (vectorised)</td></tr>
+  <tr><td>Pipe</td><td><code>%>%</code> or <code>|></code></td><td><code>.</code> method chaining</td></tr>
+  <tr><td>String</td><td><code>"hi"</code> or <code>'hi'</code></td><td><code>"hi"</code> or <code>'hi'</code> (same)</td></tr>
+  <tr><td>f-string</td><td><code>glue("Hello {name}")</code></td><td><code>f"Hello {name}"</code></td></tr>
+  <tr><td>Comment</td><td><code># comment</code></td><td><code># comment</code> (same)</td></tr>
+  <tr><td>Negation</td><td><code>!x</code></td><td><code>not x</code></td></tr>
+  <tr><td>Membership</td><td><code>x %in% c(1,2,3)</code></td><td><code>x in [1, 2, 3]</code></td></tr>
+</table>
+</div>
+
+<h3>2.4 The Pipe → Method Chaining</h3>
+<p>This is the conceptual leap. In R you pipe data through functions. In Python you <strong>chain methods</strong> on the object:</p>
+
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R (pipe)</div>
+    <pre><code>df %>%
+  filter(age > 30) %>%
+  mutate(decade = age %/% 10) %>%
+  group_by(decade) %>%
+  summarise(avg_income = mean(income)) %>%
+  arrange(desc(avg_income))</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON (chain)</div>
+    <pre><code>(df
+  .query("age > 30")
+  .assign(decade=lambda x: x["age"] // 10)
+  .groupby("decade")
+  .agg(avg_income=("income", "mean"))
+  .sort_values("avg_income", ascending=False)
+)</code></pre>
+  </div>
+</div>
+
+<div class="callout callout-tip">
+  <div class="callout-title">Chaining Trick</div>
+  Wrap the entire chain in parentheses <code>( )</code> to break across lines without backslashes. This is the Python equivalent of the pipe's fluency.
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch3">Chapter 3 — Data Types &amp; Structures</h2>
+<p class="subtitle">Lists, dictionaries, tuples — the building blocks you don't have in R.</p>
+
+<h3>3.1 Core Data Types</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>R Type</th><th>Python Type</th><th>Example</th></tr>
+  <tr><td><code>numeric</code></td><td><code>int</code> / <code>float</code></td><td><code>42</code>, <code>3.14</code></td></tr>
+  <tr><td><code>character</code></td><td><code>str</code></td><td><code>"hello"</code></td></tr>
+  <tr><td><code>logical</code></td><td><code>bool</code></td><td><code>True</code>, <code>False</code></td></tr>
+  <tr><td><code>c(1, 2, 3)</code> (vector)</td><td><code>[1, 2, 3]</code> (list)</td><td>Ordered, mutable</td></tr>
+  <tr><td><code>list(a=1, b=2)</code> (named list)</td><td><code>{"a": 1, "b": 2}</code> (dict)</td><td>Key-value pairs</td></tr>
+  <tr><td>no equivalent</td><td><code>(1, 2, 3)</code> (tuple)</td><td>Ordered, <em>immutable</em></td></tr>
+  <tr><td><code>c(1, 2, 3)</code> (vector)</td><td><code>np.array([1,2,3])</code></td><td>Vectorised operations</td></tr>
+  <tr><td><code>data.frame</code> / <code>tibble</code></td><td><code>pd.DataFrame</code></td><td>The workhorse</td></tr>
+</table>
+</div>
+
+<h3>3.2 The Big Insight: Python Lists ≠ R Vectors</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R — vectorised by default</div>
+    <pre><code>x <- c(1, 2, 3, 4, 5)
+x * 2          # 2, 4, 6, 8, 10 ✓
+x[x > 3]      # 4, 5           ✓
+mean(x)        # 3              ✓</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON — use numpy for vectorised ops</div>
+    <pre><code>x = [1, 2, 3, 4, 5]
+# x * 2  → [1,2,3,4,5,1,2,3,4,5] 😱
+
+# Use numpy instead:
+import numpy as np
+x = np.array([1, 2, 3, 4, 5])
+x * 2          # array([2,4,6,8,10]) ✓
+x[x > 3]      # array([4, 5])       ✓
+x.mean()       # 3.0                 ✓</code></pre>
+  </div>
+</div>
+
+<h3>3.3 Dictionaries (Your New Best Friend)</h3>
+<div class="code-single">
+<div class="code-label">PYTHON</div>
+<pre><code># Dicts are like R named lists but much more central to Python
+person = {
+    "name": "Meron",
+    "role": "Analyst",
+    "skills": ["R", "Python", "SQL"]
+}
+
+person["name"]               # "Meron"
+person["skills"][0]          # "R" (0-indexed!)
+person.get("age", "unknown") # safe access with default
+
+# Dicts → DataFrames (very common pattern)
+data = {
+    "name": ["Alice", "Bob", "Carol"],
+    "age": [32, 45, 28],
+    "dept": ["Research", "Engineering", "Research"]
+}
+df = pd.DataFrame(data)      # instant DataFrame!</code></pre>
+</div>
+
+<h3>3.4 List Comprehensions (R's <code>map()</code> on steroids)</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code># purrr::map
+map_dbl(1:5, ~ .x^2)
+# [1]  1  4  9 16 25
+
+# Keep evens
+keep(1:10, ~ .x %% 2 == 0)</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code># List comprehension
+[x**2 for x in range(1, 6)]
+# [1, 4, 9, 16, 25]
+
+# With condition
+[x for x in range(1, 11) if x % 2 == 0]
+# [2, 4, 6, 8, 10]</code></pre>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch4">Chapter 4 — Pandas = dplyr + tidyr</h2>
+<p class="subtitle">The single library that replaces most of the tidyverse.</p>
+
+<h3>4.1 Creating DataFrames</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code>df <- tibble(
+  name = c("Alice", "Bob", "Carol"),
+  age = c(32, 45, 28),
+  score = c(88, 92, 85)
+)
+
+glimpse(df)
+summary(df)</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code>df = pd.DataFrame({
+    "name": ["Alice", "Bob", "Carol"],
+    "age": [32, 45, 28],
+    "score": [88, 92, 85]
+})
+
+df.info()     # like glimpse()
+df.describe() # like summary()</code></pre>
+  </div>
+</div>
+
+<h3>4.2 Exploring Data</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>R / tidyverse</th><th>Python / pandas</th><th>Purpose</th></tr>
+  <tr><td><code>glimpse(df)</code></td><td><code>df.info()</code></td><td>Column types &amp; non-nulls</td></tr>
+  <tr><td><code>head(df)</code></td><td><code>df.head()</code></td><td>First rows</td></tr>
+  <tr><td><code>tail(df)</code></td><td><code>df.tail()</code></td><td>Last rows</td></tr>
+  <tr><td><code>nrow(df)</code></td><td><code>len(df)</code></td><td>Row count</td></tr>
+  <tr><td><code>ncol(df)</code></td><td><code>df.shape[1]</code></td><td>Column count</td></tr>
+  <tr><td><code>dim(df)</code></td><td><code>df.shape</code></td><td>(rows, cols) tuple</td></tr>
+  <tr><td><code>names(df)</code></td><td><code>df.columns.tolist()</code></td><td>Column names</td></tr>
+  <tr><td><code>summary(df)</code></td><td><code>df.describe()</code></td><td>Numeric summary</td></tr>
+  <tr><td><code>count(df, col)</code></td><td><code>df["col"].value_counts()</code></td><td>Frequency table</td></tr>
+  <tr><td><code>n_distinct(df$col)</code></td><td><code>df["col"].nunique()</code></td><td>Unique count</td></tr>
+  <tr><td><code>is.na(df) %>% colSums()</code></td><td><code>df.isna().sum()</code></td><td>Missing per column</td></tr>
+  <tr><td><code>df %>% distinct()</code></td><td><code>df.drop_duplicates()</code></td><td>Remove duplicates</td></tr>
+</table>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch5">Chapter 5 — Selecting &amp; Filtering</h2>
+<p class="subtitle">The dplyr verbs <code>select()</code> and <code>filter()</code> in pandas.</p>
+
+<h3>5.1 Selecting Columns</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code># Single column
+df %>% select(name)
+
+# Multiple columns
+df %>% select(name, age)
+
+# By pattern
+df %>% select(starts_with("score"))
+df %>% select(where(is.numeric))
+
+# Drop columns
+df %>% select(-age)
+
+# Rename
+df %>% rename(full_name = name)</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code># Single column (returns Series)
+df["name"]
+
+# Multiple columns (returns DataFrame)
+df[["name", "age"]]
+
+# By pattern
+df.filter(regex="^score")
+df.select_dtypes(include="number")
+
+# Drop columns
+df.drop(columns=["age"])
+
+# Rename
+df.rename(columns={"name": "full_name"})</code></pre>
+  </div>
+</div>
+
+<h3>5.2 Filtering Rows</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code># Simple filter
+df %>% filter(age > 30)
+
+# Multiple conditions
+df %>% filter(age > 30, score > 85)
+
+# OR condition
+df %>% filter(age > 30 | score > 90)
+
+# %in% check
+df %>% filter(name %in% c("Alice","Bob"))
+
+# Missing values
+df %>% filter(!is.na(score))
+
+# Slice
+df %>% slice(1:3)
+df %>% slice_max(score, n = 2)</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code># Simple filter
+df[df["age"] > 30]            # boolean mask
+df.query("age > 30")          # query string
+
+# Multiple conditions
+df.query("age > 30 and score > 85")
+
+# OR condition
+df.query("age > 30 or score > 90")
+
+# isin check
+df[df["name"].isin(["Alice", "Bob"])]
+
+# Missing values
+df[df["score"].notna()]        # or .dropna()
+
+# Slice
+df.iloc[0:3]                   # by position
+df.nlargest(2, "score")        # top N</code></pre>
+  </div>
+</div>
+
+<div class="callout callout-tip">
+  <div class="callout-title">query() vs boolean masking</div>
+  <code>df.query("age > 30")</code> is cleaner for simple filters (like dplyr). Boolean masking <code>df[df["age"] > 30]</code> is more flexible for complex logic. Use <code>.query()</code> for readability in chains.
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch6">Chapter 6 — Mutating &amp; Summarising</h2>
+<p class="subtitle"><code>mutate()</code>, <code>summarise()</code>, and <code>group_by()</code> translated to pandas.</p>
+
+<h3>6.1 Creating New Columns (mutate)</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code>df %>%
+  mutate(
+    score_pct = score / 100,
+    age_group = case_when(
+      age < 30 ~ "Young",
+      age < 40 ~ "Mid",
+      TRUE     ~ "Senior"
+    ),
+    rank = row_number()
+  )</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code>(df
+  .assign(
+    score_pct=lambda x: x["score"] / 100,
+    age_group=lambda x: np.select(
+      [x["age"] < 30, x["age"] < 40],
+      ["Young", "Mid"],
+      default="Senior"
+    ),
+    rank=lambda x: range(1, len(x) + 1)
+  )
+)
+# Or directly: df["score_pct"] = df["score"]/100</code></pre>
+  </div>
+</div>
+
+<h3>6.2 case_when → np.select / pd.cut</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code># case_when
+df %>% mutate(
+  grade = case_when(
+    score >= 90 ~ "A",
+    score >= 80 ~ "B",
+    score >= 70 ~ "C",
+    TRUE        ~ "F"
+  )
+)
+
+# cut for bins
+df %>% mutate(
+  age_bin = cut(age, breaks = c(0,30,40,50,Inf))
+)</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code># np.select (order matters!)
+conditions = [
+    df["score"] >= 90,
+    df["score"] >= 80,
+    df["score"] >= 70,
+]
+choices = ["A", "B", "C"]
+df["grade"] = np.select(conditions, choices, "F")
+
+# pd.cut for bins
+df["age_bin"] = pd.cut(
+    df["age"], bins=[0, 30, 40, 50, np.inf]
+)</code></pre>
+  </div>
+</div>
+
+<h3>6.3 Summarising &amp; Grouping</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code># Ungrouped summary
+df %>% summarise(
+  avg_score = mean(score),
+  n = n()
+)
+
+# Grouped summary
+df %>%
+  group_by(dept) %>%
+  summarise(
+    avg_score = mean(score),
+    max_age = max(age),
+    n = n()
+  ) %>%
+  ungroup()
+
+# Window function in mutate
+df %>%
+  group_by(dept) %>%
+  mutate(
+    dept_avg = mean(score),
+    rank = rank(-score)
+  )</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code># Ungrouped summary
+df.agg(
+    avg_score=("score", "mean"),
+    n=("score", "size")
+)
+
+# Grouped summary
+(df
+  .groupby("dept")
+  .agg(
+    avg_score=("score", "mean"),
+    max_age=("age", "max"),
+    n=("name", "size")
+  )
+  .reset_index()    # like ungroup()
+)
+
+# Window function (transform)
+df["dept_avg"] = (
+    df.groupby("dept")["score"].transform("mean")
+)
+df["rank"] = (
+    df.groupby("dept")["score"].rank(ascending=False)
+)</code></pre>
+  </div>
+</div>
+
+<div class="callout callout-info">
+  <div class="callout-title">.transform() = grouped mutate</div>
+  <code>.agg()</code> collapses rows (like <code>summarise</code>). <code>.transform()</code> keeps all rows (like <code>mutate</code> inside <code>group_by</code>). This is the key distinction.
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch7">Chapter 7 — Joins &amp; Reshaping</h2>
+<p class="subtitle">dplyr joins and tidyr pivots, translated.</p>
+
+<h3>7.1 Joins</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code>left_join(df1, df2, by = "id")
+inner_join(df1, df2, by = "id")
+full_join(df1, df2, by = "id")
+anti_join(df1, df2, by = "id")
+
+# Different column names
+left_join(df1, df2,
+  by = c("emp_id" = "employee_id")
+)</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code>df1.merge(df2, on="id", how="left")
+df1.merge(df2, on="id", how="inner")
+df1.merge(df2, on="id", how="outer")
+df1.merge(df2, on="id", how="left",
+          indicator=True)  # then filter
+
+# Different column names
+df1.merge(df2,
+    left_on="emp_id",
+    right_on="employee_id"
+)</code></pre>
+  </div>
+</div>
+
+<h3>7.2 Anti-join Pattern in Pandas</h3>
+<div class="code-single">
+<div class="code-label">PYTHON</div>
+<pre><code># Anti-join: rows in df1 NOT in df2
+merged = df1.merge(df2, on="id", how="left", indicator=True)
+anti = merged[merged["_merge"] == "left_only"].drop(columns="_merge")</code></pre>
+</div>
+
+<h3>7.3 Reshaping: Pivot Longer &amp; Wider</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code># Long → same as gather
+df %>% pivot_longer(
+  cols = c(q1, q2, q3),
+  names_to = "quarter",
+  values_to = "revenue"
+)
+
+# Wide → same as spread
+df %>% pivot_wider(
+  names_from = quarter,
+  values_from = revenue
+)</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code># Melt = pivot_longer
+df.melt(
+    id_vars=["name"],
+    value_vars=["q1", "q2", "q3"],
+    var_name="quarter",
+    value_name="revenue"
+)
+
+# Pivot = pivot_wider
+df.pivot_table(
+    index="name",
+    columns="quarter",
+    values="revenue"
+).reset_index()</code></pre>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch8">Chapter 8 — Strings, Dates &amp; Factors</h2>
+<p class="subtitle">stringr, lubridate, forcats → pandas str/dt accessors.</p>
+
+<h3>8.1 String Operations</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R (stringr)</div>
+    <pre><code>str_to_lower(x)
+str_to_upper(x)
+str_trim(x)
+str_detect(x, "pattern")
+str_replace(x, "old", "new")
+str_sub(x, 1, 3)
+str_c("a", "b", sep = "-")
+str_extract(x, "\\d+")</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON (pandas .str accessor)</div>
+    <pre><code>df["col"].str.lower()
+df["col"].str.upper()
+df["col"].str.strip()
+df["col"].str.contains("pattern")
+df["col"].str.replace("old", "new")
+df["col"].str[:3]
+"a" + "-" + "b"  # or "-".join(...)
+df["col"].str.extract(r"(\d+)")</code></pre>
+  </div>
+</div>
+
+<h3>8.2 Dates &amp; Times</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R (lubridate)</div>
+    <pre><code>ymd("2024-03-15")
+today()
+x <- ymd("2024-03-15")
+year(x); month(x); day(x)
+x + days(30)
+floor_date(x, "month")
+interval(start, end) / days(1)</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON (pandas)</div>
+    <pre><code>pd.to_datetime("2024-03-15")
+pd.Timestamp.today()
+x = pd.to_datetime("2024-03-15")
+x.year; x.month; x.day
+x + pd.Timedelta(days=30)
+x.to_period("M").to_timestamp()
+(end - start).days</code></pre>
+  </div>
+</div>
+
+<h3>8.3 Factors → Categoricals</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R (forcats)</div>
+    <pre><code>factor(x, levels = c("Low","Med","High"))
+fct_relevel(x, "High", "Med", "Low")
+fct_reorder(x, value, .fun = median)
+fct_lump_n(x, n = 5)</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code>pd.Categorical(x, categories=["Low","Med","High"],
+               ordered=True)
+df["col"] = df["col"].cat.reorder_categories(
+    ["High","Med","Low"])
+# Reorder by value — set after sorting
+# Lump — use value_counts + threshold</code></pre>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch9">Chapter 9 — Reading &amp; Writing Data</h2>
+<p class="subtitle">readr, readxl, haven → pandas read_* functions.</p>
+
+<div class="table-wrap">
+<table>
+  <tr><th>Format</th><th>R</th><th>Python / pandas</th></tr>
+  <tr><td>CSV</td><td><code>read_csv("f.csv")</code></td><td><code>pd.read_csv("f.csv")</code></td></tr>
+  <tr><td>TSV</td><td><code>read_tsv("f.tsv")</code></td><td><code>pd.read_csv("f.tsv", sep="\t")</code></td></tr>
+  <tr><td>Excel</td><td><code>readxl::read_excel("f.xlsx")</code></td><td><code>pd.read_excel("f.xlsx")</code></td></tr>
+  <tr><td>JSON</td><td><code>jsonlite::read_json("f.json")</code></td><td><code>pd.read_json("f.json")</code></td></tr>
+  <tr><td>Parquet</td><td><code>arrow::read_parquet("f.parquet")</code></td><td><code>pd.read_parquet("f.parquet")</code></td></tr>
+  <tr><td>SPSS / Stata</td><td><code>haven::read_sav()</code></td><td><code>pd.read_spss() / pd.read_stata()</code></td></tr>
+  <tr><td>SQL</td><td><code>DBI::dbGetQuery()</code></td><td><code>pd.read_sql(query, conn)</code></td></tr>
+  <tr><td>Clipboard</td><td><code>readr::clipboard()</code></td><td><code>pd.read_clipboard()</code></td></tr>
+</table>
+</div>
+
+<div class="code-single">
+<div class="code-label">PYTHON — Common read_csv options</div>
+<pre><code>df = pd.read_csv(
+    "data.csv",
+    usecols=["name", "age", "score"],  # select columns on read
+    dtype={"age": int},                 # force types
+    parse_dates=["date_col"],           # auto-parse dates
+    na_values=["", "NA", "N/A", "-"],   # custom NA strings
+    nrows=1000,                         # read only first 1000
+    encoding="utf-8",                   # encoding
+)
+
+# Writing
+df.to_csv("output.csv", index=False)     # index=False prevents row numbers
+df.to_excel("output.xlsx", index=False)
+df.to_parquet("output.parquet")           # fast, compressed — prefer this!</code></pre>
+</div>
+
+<div class="callout callout-tip">
+  <div class="callout-title">Parquet: Use It</div>
+  Parquet is 5–10× smaller than CSV, 10–50× faster to read, and preserves data types. If you're doing ETL, always store intermediate files as Parquet.
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch10">Chapter 10 — ETL Pipelines</h2>
+<p class="subtitle">Extract, Transform, Load — building real data workflows in Python.</p>
+
+<h3>10.1 ETL Pattern</h3>
+<div class="code-single">
+<div class="code-label">PYTHON — Full ETL Pipeline</div>
+<pre><code>import pandas as pd
+import numpy as np
+from pathlib import Path
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# ── EXTRACT ──────────────────────────────────────────
+def extract(source_dir: str) -> pd.DataFrame:
+    """Read all CSVs from a directory and combine."""
+    files = list(Path(source_dir).glob("*.csv"))
+    logger.info(f"Found {len(files)} files")
+
+    dfs = []
+    for f in files:
+        df = pd.read_csv(f, parse_dates=["date"])
+        df["source_file"] = f.name         # track provenance
+        dfs.append(df)
+
+    raw = pd.concat(dfs, ignore_index=True)
+    logger.info(f"Extracted {len(raw):,} rows")
+    return raw
+
+
+# ── TRANSFORM ────────────────────────────────────────
+def transform(df: pd.DataFrame) -> pd.DataFrame:
+    """Clean, validate, and enrich the data."""
+    return (df
+        # 1. Standardise column names
+        .rename(columns=str.lower)
+        .rename(columns=lambda c: c.strip().replace(" ", "_"))
+
+        # 2. Remove duplicates
+        .drop_duplicates(subset=["id", "date"])
+
+        # 3. Handle missing values
+        .dropna(subset=["id"])               # must have ID
+        .assign(
+            amount=lambda x: x["amount"].fillna(0),
+            category=lambda x: x["category"].fillna("Unknown"),
+        )
+
+        # 4. Type enforcement
+        .astype({"category": "category"})
+
+        # 5. Business logic
+        .assign(
+            year=lambda x: x["date"].dt.year,
+            month=lambda x: x["date"].dt.month,
+            quarter=lambda x: x["date"].dt.quarter,
+            amount_gbp=lambda x: x["amount"] * 0.79,  # USD→GBP
+            size_bucket=lambda x: pd.cut(
+                x["amount"],
+                bins=[0, 100, 1000, 10000, np.inf],
+                labels=["Small", "Medium", "Large", "Enterprise"]
+            ),
+        )
+
+        # 6. Filter invalid records
+        .query("amount >= 0")
+
+        # 7. Sort
+        .sort_values(["date", "id"])
+        .reset_index(drop=True)
+    )
+
+
+# ── LOAD ─────────────────────────────────────────────
+def load(df: pd.DataFrame, output_path: str):
+    """Save clean data to Parquet."""
+    df.to_parquet(output_path, index=False)
+    logger.info(f"Loaded {len(df):,} rows → {output_path}")
+
+
+# ── ORCHESTRATE ──────────────────────────────────────
+if __name__ == "__main__":
+    raw = extract("data/raw/")
+    clean = transform(raw)
+    load(clean, "data/processed/clean_data.parquet")</code></pre>
+</div>
+
+<h3>10.2 Validation Layer (Quality Checks)</h3>
+<div class="code-single">
+<div class="code-label">PYTHON</div>
+<pre><code>def validate(df: pd.DataFrame) -> pd.DataFrame:
+    """Run data quality checks. Raise on critical failures."""
+    checks = {
+        "no_nulls_in_id":    df["id"].notna().all(),
+        "positive_amounts":  (df["amount"] >= 0).all(),
+        "valid_dates":       df["date"].between("2020-01-01", "2026-12-31").all(),
+        "no_duplicates":     not df.duplicated(subset=["id", "date"]).any(),
+        "row_count_min":     len(df) >= 100,
+    }
+
+    for check_name, passed in checks.items():
+        status = "✓ PASS" if passed else "✗ FAIL"
+        logger.info(f"  {status}: {check_name}")
+
+    failures = [k for k, v in checks.items() if not v]
+    if failures:
+        raise ValueError(f"Validation failed: {failures}")
+
+    return df
+
+# Insert into pipeline:
+# raw = extract(...)
+# clean = transform(raw)
+# validated = validate(clean)     ← new
+# load(validated, ...)</code></pre>
+</div>
+
+<h3>10.3 The R Comparison</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R — Typical pipeline</div>
+    <pre><code>library(tidyverse)
+library(fs)
+
+raw <- dir_ls("data/raw", glob = "*.csv") %>%
+  map_dfr(read_csv)
+
+clean <- raw %>%
+  janitor::clean_names() %>%
+  distinct(id, date, .keep_all = TRUE) %>%
+  filter(!is.na(id), amount >= 0) %>%
+  mutate(
+    year = year(date),
+    quarter = quarter(date),
+    size = cut(amount,
+      breaks = c(0, 100, 1000, Inf),
+      labels = c("S", "M", "L"))
+  )
+
+write_parquet(clean, "data/clean.parquet")</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON — Same pipeline</div>
+    <pre><code>import pandas as pd
+from pathlib import Path
+
+files = Path("data/raw").glob("*.csv")
+raw = pd.concat(
+    [pd.read_csv(f) for f in files],
+    ignore_index=True
+)
+
+clean = (raw
+    .rename(columns=str.lower)
+    .drop_duplicates(subset=["id", "date"])
+    .dropna(subset=["id"])
+    .query("amount >= 0")
+    .assign(
+        year=lambda x: x["date"].dt.year,
+        quarter=lambda x: x["date"].dt.quarter,
+        size=lambda x: pd.cut(x["amount"],
+            bins=[0,100,1000,np.inf],
+            labels=["S","M","L"]),
+    )
+)
+
+clean.to_parquet("data/clean.parquet")</code></pre>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch11">Chapter 11 — APIs &amp; Web Scraping</h2>
+<p class="subtitle">httr/rvest → requests/BeautifulSoup.</p>
+
+<h3>11.1 Calling APIs</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code>library(httr)
+library(jsonlite)
+
+resp <- GET(
+  "https://api.example.com/data",
+  add_headers(Authorization = "Bearer xyz"),
+  query = list(limit = 100)
+)
+
+data <- content(resp, as = "parsed")
+df <- as_tibble(data$results)</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code>import requests
+import pandas as pd
+
+resp = requests.get(
+    "https://api.example.com/data",
+    headers={"Authorization": "Bearer xyz"},
+    params={"limit": 100}
+)
+
+data = resp.json()
+df = pd.DataFrame(data["results"])</code></pre>
+  </div>
+</div>
+
+<h3>11.2 Web Scraping</h3>
+<div class="code-single">
+<div class="code-label">PYTHON</div>
+<pre><code>import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+url = "https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)"
+resp = requests.get(url)
+soup = BeautifulSoup(resp.text, "html.parser")
+
+# Find all tables
+tables = pd.read_html(resp.text)   # pandas can parse HTML tables!
+gdp_df = tables[0]                 # first table on the page
+
+# Or parse manually for more control
+rows = []
+for tr in soup.select("table.wikitable tr")[1:]:
+    cells = [td.text.strip() for td in tr.find_all(["td", "th"])]
+    rows.append(cells)
+
+df = pd.DataFrame(rows, columns=["Rank", "Country", "GDP"])</code></pre>
+</div>
+
+<h3>11.3 Paginating Through an API</h3>
+<div class="code-single">
+<div class="code-label">PYTHON — Real-world pagination pattern</div>
+<pre><code>def fetch_all_pages(base_url: str, api_key: str) -> pd.DataFrame:
+    """Paginate through a REST API, collecting all results."""
+    all_data = []
+    page = 1
+
+    while True:
+        resp = requests.get(
+            base_url,
+            headers={"Authorization": f"Bearer {api_key}"},
+            params={"page": page, "per_page": 100}
+        )
+        resp.raise_for_status()  # raise exception on HTTP errors
+
+        data = resp.json()
+        results = data.get("results", [])
+
+        if not results:
+            break
+
+        all_data.extend(results)
+        page += 1
+
+        if page > data.get("total_pages", 1):
+            break
+
+    return pd.DataFrame(all_data)</code></pre>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch12">Chapter 12 — SQL from Python</h2>
+<p class="subtitle">DBI/dbplyr → SQLAlchemy/pandas.</p>
+
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code>library(DBI)
+
+con <- dbConnect(
+  RPostgres::Postgres(),
+  host = "localhost",
+  dbname = "mydb",
+  user = "user",
+  password = "pass"
+)
+
+df <- dbGetQuery(con, "
+  SELECT dept, AVG(salary)
+  FROM employees
+  WHERE active = true
+  GROUP BY dept
+")
+
+dbDisconnect(con)</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code>from sqlalchemy import create_engine
+import pandas as pd
+
+engine = create_engine(
+    "postgresql://user:pass@localhost/mydb"
+)
+
+df = pd.read_sql("""
+    SELECT dept, AVG(salary)
+    FROM employees
+    WHERE active = true
+    GROUP BY dept
+""", engine)
+
+engine.dispose()</code></pre>
+  </div>
+</div>
+
+<div class="code-single">
+<div class="code-label">PYTHON — Writing DataFrames to SQL</div>
+<pre><code># Write a DataFrame to a database table
+df.to_sql(
+    "clean_employees",      # table name
+    engine,
+    if_exists="replace",    # "append", "replace", or "fail"
+    index=False,
+    method="multi",         # faster batch insert
+    chunksize=5000
+)
+
+# Supabase / PostgreSQL with connection pooling
+engine = create_engine(
+    "postgresql://user:pass@db.xyz.supabase.co:5432/postgres",
+    pool_size=5,
+    max_overflow=10
+)</code></pre>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch13">Chapter 13 — Matplotlib &amp; Seaborn</h2>
+<p class="subtitle">ggplot2 → matplotlib + seaborn (the grammar of graphics, translated).</p>
+
+<h3>13.1 The Mental Model</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>ggplot2 Concept</th><th>matplotlib/seaborn</th></tr>
+  <tr><td><code>ggplot(df, aes(x, y))</code></td><td><code>fig, ax = plt.subplots()</code></td></tr>
+  <tr><td><code>geom_point()</code></td><td><code>ax.scatter(x, y)</code> or <code>sns.scatterplot()</code></td></tr>
+  <tr><td><code>geom_line()</code></td><td><code>ax.plot(x, y)</code> or <code>sns.lineplot()</code></td></tr>
+  <tr><td><code>geom_bar()</code></td><td><code>ax.bar(x, y)</code> or <code>sns.barplot()</code></td></tr>
+  <tr><td><code>geom_histogram()</code></td><td><code>ax.hist(x)</code> or <code>sns.histplot()</code></td></tr>
+  <tr><td><code>geom_boxplot()</code></td><td><code>sns.boxplot()</code></td></tr>
+  <tr><td><code>facet_wrap(~var)</code></td><td><code>sns.FacetGrid()</code> or <code>fig, axes = plt.subplots(1, 3)</code></td></tr>
+  <tr><td><code>labs(title, x, y)</code></td><td><code>ax.set(title=, xlabel=, ylabel=)</code></td></tr>
+  <tr><td><code>theme_minimal()</code></td><td><code>plt.style.use('seaborn-v0_8-whitegrid')</code></td></tr>
+  <tr><td><code>scale_fill_brewer()</code></td><td><code>palette="Set2"</code> in seaborn</td></tr>
+  <tr><td><code>ggsave("plot.png")</code></td><td><code>plt.savefig("plot.png", dpi=150, bbox_inches="tight")</code></td></tr>
+</table>
+</div>
+
+<h3>13.2 Side-by-Side Example</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R (ggplot2)</div>
+    <pre><code>ggplot(df, aes(x = age, y = score,
+               colour = dept)) +
+  geom_point(alpha = 0.7, size = 3) +
+  geom_smooth(method = "lm") +
+  labs(
+    title = "Score by Age",
+    x = "Age", y = "Score"
+  ) +
+  theme_minimal() +
+  scale_colour_brewer(palette = "Set2")</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON (seaborn)</div>
+    <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(8, 5))
+sns.scatterplot(
+    data=df, x="age", y="score",
+    hue="dept", alpha=0.7, s=60,
+    palette="Set2", ax=ax
+)
+sns.regplot(
+    data=df, x="age", y="score",
+    scatter=False, ax=ax, color="grey"
+)
+ax.set(title="Score by Age",
+       xlabel="Age", ylabel="Score")
+sns.despine()
+plt.tight_layout()
+plt.savefig("scatter.png", dpi=150)</code></pre>
+  </div>
+</div>
+
+<h3>13.3 Common Chart Recipes</h3>
+<div class="code-single">
+<div class="code-label">PYTHON</div>
+<pre><code>import matplotlib.pyplot as plt
+import seaborn as sns
+plt.style.use('seaborn-v0_8-whitegrid')
+
+# ── Bar Chart ──
+fig, ax = plt.subplots(figsize=(8, 5))
+sns.barplot(data=df, x="dept", y="score", palette="viridis", ax=ax)
+ax.set_title("Average Score by Department", fontweight="bold")
+ax.bar_label(ax.containers[0], fmt="%.1f")  # value labels on bars
+
+# ── Histogram ──
+fig, ax = plt.subplots()
+sns.histplot(df["score"], bins=20, kde=True, ax=ax)
+
+# ── Faceted chart (like facet_wrap) ──
+g = sns.FacetGrid(df, col="dept", col_wrap=3, height=4)
+g.map_dataframe(sns.scatterplot, x="age", y="score")
+g.set_titles("{col_name}")
+
+# ── Heatmap (correlation) ──
+fig, ax = plt.subplots(figsize=(8, 6))
+sns.heatmap(df.select_dtypes("number").corr(),
+            annot=True, fmt=".2f", cmap="RdBu_r",
+            center=0, ax=ax)</code></pre>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch14">Chapter 14 — Plotly Interactive</h2>
+<p class="subtitle">plotly in R → plotly in Python (nearly identical!).</p>
+
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code>library(plotly)
+
+plot_ly(df,
+  x = ~date, y = ~value,
+  color = ~group,
+  type = "scatter",
+  mode = "lines"
+) %>%
+  layout(title = "Trend")</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code>import plotly.express as px
+
+fig = px.line(
+    df,
+    x="date", y="value",
+    color="group",
+    title="Trend"
+)
+fig.show()
+fig.write_html("trend.html")</code></pre>
+  </div>
+</div>
+
+<div class="callout callout-tip">
+  <div class="callout-title">Plotly Express</div>
+  <code>plotly.express</code> (imported as <code>px</code>) is the high-level API — one function per chart type, very similar to ggplot. Use <code>plotly.graph_objects</code> for full customisation.
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch15">Chapter 15 — Statistics &amp; Hypothesis Tests</h2>
+<p class="subtitle">stats::t.test, chisq.test → scipy.stats.</p>
+
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code># t-test
+t.test(score ~ group, data = df)
+
+# Chi-squared
+chisq.test(table(df$dept, df$grade))
+
+# Correlation
+cor.test(df$age, df$score)
+
+# Shapiro-Wilk normality
+shapiro.test(df$score)
+
+# Mann-Whitney U
+wilcox.test(score ~ group, data = df)
+
+# Linear regression
+model <- lm(score ~ age + dept, data = df)
+summary(model)</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code>from scipy import stats
+
+# t-test
+stats.ttest_ind(group_a, group_b)
+
+# Chi-squared
+ct = pd.crosstab(df["dept"], df["grade"])
+stats.chi2_contingency(ct)
+
+# Correlation
+stats.pearsonr(df["age"], df["score"])
+
+# Shapiro-Wilk normality
+stats.shapiro(df["score"])
+
+# Mann-Whitney U
+stats.mannwhitneyu(group_a, group_b)
+
+# Linear regression
+import statsmodels.formula.api as smf
+model = smf.ols("score ~ age + dept", data=df)
+results = model.fit()
+print(results.summary())</code></pre>
+  </div>
+</div>
+
+<h3>15.1 Effect Sizes (Don't Just Report p-values)</h3>
+<div class="code-single">
+<div class="code-label">PYTHON</div>
+<pre><code># Cohen's d (effect size for t-test)
+def cohens_d(group1, group2):
+    n1, n2 = len(group1), len(group2)
+    pooled_std = np.sqrt(((n1-1)*group1.std()**2 + (n2-1)*group2.std()**2) / (n1+n2-2))
+    return (group1.mean() - group2.mean()) / pooled_std
+
+d = cohens_d(group_a, group_b)
+# |d| < 0.2 = small, 0.5 = medium, 0.8 = large
+
+# Confidence intervals (bootstrap)
+from scipy.stats import bootstrap
+rng = np.random.default_rng(42)
+result = bootstrap((df["score"].values,), np.mean,
+                    confidence_level=0.95, random_state=rng)
+print(f"95% CI: ({result.confidence_interval.low:.2f}, "
+      f"{result.confidence_interval.high:.2f})")</code></pre>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch16">Chapter 16 — Regression &amp; Machine Learning</h2>
+<p class="subtitle">caret/tidymodels → scikit-learn.</p>
+
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R (tidymodels)</div>
+    <pre><code>library(tidymodels)
+
+# Split
+split <- initial_split(df, prop = 0.8)
+train <- training(split)
+test <- testing(split)
+
+# Recipe + model
+rec <- recipe(score ~ ., data = train) %>%
+  step_dummy(all_nominal()) %>%
+  step_normalize(all_numeric_predictors())
+
+model <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(score ~ ., data = juice(prep(rec)))
+
+# Predict
+preds <- predict(model, bake(prep(rec), test))</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON (scikit-learn)</div>
+    <pre><code>from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import r2_score, mean_squared_error
+
+# Split
+X = df.drop(columns=["score"])
+y = df["score"]
+X = pd.get_dummies(X, drop_first=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42)
+
+# Pipeline (recipe + model)
+pipe = Pipeline([
+    ("scaler", StandardScaler()),
+    ("model", LinearRegression())
+])
+pipe.fit(X_train, y_train)
+
+# Predict
+preds = pipe.predict(X_test)
+print(f"R² = {r2_score(y_test, preds):.3f}")</code></pre>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch17">Chapter 17 — Functions &amp; Scripts</h2>
+<p class="subtitle">Writing reusable code — functions, error handling, and CLI scripts.</p>
+
+<h3>17.1 Functions</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code>clean_names <- function(df,
+                        case = "snake") {
+  df %>%
+    janitor::clean_names(case = case)
+}
+
+# Default arguments
+calc_rate <- function(n, total,
+                      digits = 2) {
+  round(n / total * 100, digits)
+}</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code>def clean_names(df: pd.DataFrame,
+                case: str = "snake") -> pd.DataFrame:
+    """Standardise column names."""
+    cols = df.columns.str.strip().str.lower()
+    cols = cols.str.replace(" ", "_")
+    return df.set_axis(cols, axis=1)
+
+# Default arguments + type hints
+def calc_rate(n: int, total: int,
+              digits: int = 2) -> float:
+    return round(n / total * 100, digits)</code></pre>
+  </div>
+</div>
+
+<h3>17.2 Error Handling</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R</div>
+    <pre><code>result <- tryCatch(
+  {
+    risky_operation()
+  },
+  error = function(e) {
+    message("Error: ", e$message)
+    NA
+  },
+  warning = function(w) {
+    message("Warning: ", w$message)
+  }
+)</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON</div>
+    <pre><code>try:
+    result = risky_operation()
+except FileNotFoundError as e:
+    print(f"File missing: {e}")
+    result = None
+except ValueError as e:
+    print(f"Bad value: {e}")
+    result = None
+except Exception as e:
+    print(f"Unexpected: {e}")
+    raise  # re-raise unexpected errors
+finally:
+    cleanup()  # always runs</code></pre>
+  </div>
+</div>
+
+<h3>17.3 Command-Line Scripts</h3>
+<div class="code-single">
+<div class="code-label">PYTHON — CLI script with argparse</div>
+<pre><code>#!/usr/bin/env python3
+"""ETL script that can be run from the command line."""
+import argparse
+import pandas as pd
+
+def main():
+    parser = argparse.ArgumentParser(description="Run ETL pipeline")
+    parser.add_argument("input", help="Path to input CSV")
+    parser.add_argument("-o", "--output", default="output.parquet")
+    parser.add_argument("--year", type=int, help="Filter to year")
+    args = parser.parse_args()
+
+    df = pd.read_csv(args.input)
+    if args.year:
+        df = df.query("year == @args.year")
+    df.to_parquet(args.output, index=False)
+    print(f"✓ Saved {len(df):,} rows → {args.output}")
+
+if __name__ == "__main__":
+    main()
+
+# Usage: python etl.py data.csv -o clean.parquet --year 2024</code></pre>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch18">Chapter 18 — Packaging &amp; Environments</h2>
+<p class="subtitle">renv → venv/pip, R packages → Python packages.</p>
+
+<h3>18.1 Virtual Environments</h3>
+<div class="code-compare">
+  <div class="code-panel">
+    <div class="code-label code-label-r">R (renv)</div>
+    <pre><code>renv::init()        # create lockfile
+renv::install("dplyr")
+renv::snapshot()    # save state
+renv::restore()     # reproduce</code></pre>
+  </div>
+  <div class="code-panel">
+    <div class="code-label code-label-py">PYTHON (venv + pip)</div>
+    <pre><code>python -m venv .venv
+source .venv/bin/activate
+pip install pandas
+pip freeze > requirements.txt  # save
+pip install -r requirements.txt # reproduce</code></pre>
+  </div>
+</div>
+
+<h3>18.2 Project Structure</h3>
+<div class="code-single">
+<div class="code-label">PYTHON — Standard project layout</div>
+<pre><code>my_project/
+├── data/
+│   ├── raw/              # never modify raw data
+│   └── processed/        # ETL output goes here
+├── notebooks/
+│   └── exploration.ipynb # Jupyter notebooks
+├── src/
+│   ├── __init__.py       # makes it a package
+│   ├── extract.py
+│   ├── transform.py
+│   └── load.py
+├── tests/
+│   └── test_transform.py
+├── requirements.txt      # like renv.lock
+├── .gitignore
+└── README.md</code></pre>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<h2 id="ch19">Chapter 19 — Complete Cheat Sheet</h2>
+<p class="subtitle">The full R → Python translation table. Bookmark this.</p>
+
+<div class="table-wrap">
+<table>
+  <tr><th>Operation</th><th>R / tidyverse</th><th>Python / pandas</th></tr>
+  <tr><td>Read CSV</td><td><code>read_csv("f.csv")</code></td><td><code>pd.read_csv("f.csv")</code></td></tr>
+  <tr><td>Write CSV</td><td><code>write_csv(df, "f.csv")</code></td><td><code>df.to_csv("f.csv", index=False)</code></td></tr>
+  <tr><td>View structure</td><td><code>glimpse(df)</code></td><td><code>df.info()</code></td></tr>
+  <tr><td>Summary stats</td><td><code>summary(df)</code></td><td><code>df.describe()</code></td></tr>
+  <tr><td>Select cols</td><td><code>select(name, age)</code></td><td><code>df[["name", "age"]]</code></td></tr>
+  <tr><td>Drop cols</td><td><code>select(-age)</code></td><td><code>df.drop(columns=["age"])</code></td></tr>
+  <tr><td>Rename</td><td><code>rename(new = old)</code></td><td><code>df.rename(columns={"old":"new"})</code></td></tr>
+  <tr><td>Filter rows</td><td><code>filter(age > 30)</code></td><td><code>df.query("age > 30")</code></td></tr>
+  <tr><td>Sort</td><td><code>arrange(desc(age))</code></td><td><code>df.sort_values("age", ascending=False)</code></td></tr>
+  <tr><td>New column</td><td><code>mutate(x = a + b)</code></td><td><code>df.assign(x=lambda d: d["a"]+d["b"])</code></td></tr>
+  <tr><td>case_when</td><td><code>case_when(...)</code></td><td><code>np.select(conditions, choices)</code></td></tr>
+  <tr><td>Group + summarise</td><td><code>group_by(g) %>% summarise(m=mean(x))</code></td><td><code>df.groupby("g").agg(m=("x","mean"))</code></td></tr>
+  <tr><td>Window (grouped mutate)</td><td><code>group_by(g) %>% mutate(m=mean(x))</code></td><td><code>df.groupby("g")["x"].transform("mean")</code></td></tr>
+  <tr><td>Ungroup</td><td><code>ungroup()</code></td><td><code>.reset_index()</code></td></tr>
+  <tr><td>Count</td><td><code>count(col)</code></td><td><code>df["col"].value_counts()</code></td></tr>
+  <tr><td>Distinct</td><td><code>distinct()</code></td><td><code>df.drop_duplicates()</code></td></tr>
+  <tr><td>Left join</td><td><code>left_join(a, b, by="id")</code></td><td><code>a.merge(b, on="id", how="left")</code></td></tr>
+  <tr><td>Pivot longer</td><td><code>pivot_longer()</code></td><td><code>df.melt()</code></td></tr>
+  <tr><td>Pivot wider</td><td><code>pivot_wider()</code></td><td><code>df.pivot_table()</code></td></tr>
+  <tr><td>Missing count</td><td><code>sum(is.na(x))</code></td><td><code>df["x"].isna().sum()</code></td></tr>
+  <tr><td>Fill NA</td><td><code>replace_na(x, 0)</code></td><td><code>df["x"].fillna(0)</code></td></tr>
+  <tr><td>String lower</td><td><code>str_to_lower(x)</code></td><td><code>df["x"].str.lower()</code></td></tr>
+  <tr><td>Date parse</td><td><code>ymd("2024-01-01")</code></td><td><code>pd.to_datetime("2024-01-01")</code></td></tr>
+  <tr><td>Year extract</td><td><code>year(date)</code></td><td><code>df["date"].dt.year</code></td></tr>
+  <tr><td>Apply func</td><td><code>map_dbl(x, fn)</code></td><td><code>df["x"].apply(fn)</code></td></tr>
+  <tr><td>Row-wise</td><td><code>rowwise() %>% mutate(...)</code></td><td><code>df.apply(fn, axis=1)</code></td></tr>
+  <tr><td>Bind rows</td><td><code>bind_rows(a, b)</code></td><td><code>pd.concat([a, b])</code></td></tr>
+  <tr><td>Bind cols</td><td><code>bind_cols(a, b)</code></td><td><code>pd.concat([a, b], axis=1)</code></td></tr>
+</table>
+</div>
+
+<div class="callout callout-tip">
+  <div class="callout-title">You've Got This</div>
+  You already have the hardest part — the <strong>analytical thinking</strong>. Python is just new syntax on familiar concepts. Start by rewriting one R script in Python, then keep going. Every tidyverse verb has a pandas equivalent, and you now have the map.
+</div>
+
+<div style="text-align: center; margin-top: 48px; padding: 32px; color: var(--text-muted); font-size: 14px;">
+  <p style="font-family: var(--font-mono); font-size: 12px;">Built for Meron · R → Python · 2026</p>
+</div>
+
+</div><!-- /main -->
+
+<script>
+// Progress bar
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+});
+
+// TOC active state
+const links = document.querySelectorAll('.toc-link');
+const sections = [...links].map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.toc-link[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+
+sections.forEach(s => obs.observe(s));
+
+// Mobile toggle
+document.getElementById('toggleToc').addEventListener('click', () => {
+  document.getElementById('tocSidebar').classList.toggle('open');
+});
+</script>
+</body>
+</html>
