@@ -19,7 +19,5 @@ Data analysts and researchers who already work in R with the tidyverse and want 
 
 Includes a complete R → Python cheat sheet table covering 30+ common operations.
 
-## Usage
 
-Open `python_for_tidyverse_users.html` in any browser. The guide is a single self-contained file with a navigation sidebar and progress indicator — no build step or dependencies needed.
 
