@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Python for Tidyverse Users — Complete Guide</title>
+<title>Python for Tidyverse Users : Complete Guide</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -225,6 +225,50 @@ td code { font-size: 12.5px; }
 
 ul, ol { margin: 8px 0 16px 24px; }
 li { margin-bottom: 6px; }
+
+/* ── ENRICHMENT LAYER ── */
+.learning-box, .depth-box, .exercise-box, .takeaway-box {
+  margin: 18px 0 26px; padding: 20px 22px; border-radius: 12px;
+  border: 1px solid var(--border); background: #fff; box-shadow: var(--shadow);
+}
+.learning-box { border-left: 5px solid #7c3aed; background: #faf5ff; }
+.depth-box { border-left: 5px solid #0f766e; background: #f0fdfa; }
+.exercise-box { border-left: 5px solid #ea580c; background: #fff7ed; }
+.takeaway-box { border-left: 5px solid #ca8a04; background: #fefce8; }
+.enrich-title {
+  font-size: 12px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .8px; margin-bottom: 8px;
+}
+.learning-box .enrich-title { color:#6d28d9; }
+.depth-box .enrich-title { color:#0f766e; }
+.exercise-box .enrich-title { color:#c2410c; }
+.takeaway-box .enrich-title { color:#a16207; }
+.key-highlight {
+  background: linear-gradient(transparent 58%, rgba(255,212,59,.55) 58%);
+  font-weight: 650;
+}
+.pitfall {
+  display:inline-block; padding:2px 7px; border-radius:5px;
+  background:#fee2e2; color:#991b1b; font-weight:700;
+}
+.production {
+  display:inline-block; padding:2px 7px; border-radius:5px;
+  background:#dcfce7; color:#166534; font-weight:700;
+}
+.chapter-card:hover, .learning-box:hover, .depth-box:hover, .exercise-box:hover, .takeaway-box:hover {
+  transform: translateY(-1px); transition: transform .15s ease;
+}
+
+
+/* DATA CLEANING EXPANSION */
+.workflow-box {
+  margin: 20px 0 28px; padding: 22px 24px; border-radius: 12px;
+  background: #f8fafc; border: 1px solid #cbd5e1; box-shadow: var(--shadow);
+}
+.workflow-box h4 { margin-top: 0; color: #334155; }
+.mini-checklist { columns: 2; column-gap: 28px; }
+@media (max-width: 700px) { .mini-checklist { columns: 1; } }
+
 </style>
 </head>
 <body>
@@ -237,36 +281,36 @@ li { margin-bottom: 6px; }
   <div class="toc-logo"><span>R →</span> Python</div>
 
   <div class="toc-section">Foundations</div>
-  <a class="toc-link" href="#ch0">0 — Why Python from R</a>
-  <a class="toc-link" href="#ch1">1 — Setup &amp; Environment</a>
-  <a class="toc-link" href="#ch2">2 — Python Syntax Primer</a>
-  <a class="toc-link" href="#ch3">3 — Data Types &amp; Structures</a>
+  <a class="toc-link" href="#ch0">0 : Why Python from R</a>
+  <a class="toc-link" href="#ch1">1 : Setup &amp; Environment</a>
+  <a class="toc-link" href="#ch2">2 : Python Syntax Primer</a>
+  <a class="toc-link" href="#ch3">3 : Data Types &amp; Structures</a>
 
   <div class="toc-section">Data Wrangling</div>
-  <a class="toc-link" href="#ch4">4 — Pandas = dplyr + tidyr</a>
-  <a class="toc-link" href="#ch5">5 — Selecting &amp; Filtering</a>
-  <a class="toc-link" href="#ch6">6 — Mutating &amp; Summarising</a>
-  <a class="toc-link" href="#ch7">7 — Joins &amp; Reshaping</a>
-  <a class="toc-link" href="#ch8">8 — Strings, Dates, Factors</a>
+  <a class="toc-link" href="#ch4">4 : Pandas = dplyr + tidyr</a>
+  <a class="toc-link" href="#ch5">5 : Selecting &amp; Filtering</a>
+  <a class="toc-link" href="#ch6">6 : Mutating &amp; Summarising</a>
+  <a class="toc-link" href="#ch7">7 : Joins &amp; Reshaping</a>
+  <a class="toc-link" href="#ch8">8 : Strings, Dates, Factors</a>
 
   <div class="toc-section">ETL &amp; Pipelines</div>
-  <a class="toc-link" href="#ch9">9 — Reading &amp; Writing Data</a>
-  <a class="toc-link" href="#ch10">10 — ETL Pipelines</a>
-  <a class="toc-link" href="#ch11">11 — APIs &amp; Web Scraping</a>
-  <a class="toc-link" href="#ch12">12 — SQL from Python</a>
+  <a class="toc-link" href="#ch9">9 : Reading &amp; Writing Data</a>
+  <a class="toc-link" href="#ch10">10 : ETL Pipelines</a>
+  <a class="toc-link" href="#ch11">11 : APIs &amp; Web Scraping</a>
+  <a class="toc-link" href="#ch12">12 : SQL from Python</a>
 
   <div class="toc-section">Visualisation</div>
-  <a class="toc-link" href="#ch13">13 — matplotlib &amp; seaborn</a>
-  <a class="toc-link" href="#ch14">14 — plotly Interactive</a>
+  <a class="toc-link" href="#ch13">13 : matplotlib &amp; seaborn</a>
+  <a class="toc-link" href="#ch14">14 : plotly Interactive</a>
 
   <div class="toc-section">Statistics &amp; Modelling</div>
-  <a class="toc-link" href="#ch15">15 — Stats &amp; Hypothesis Tests</a>
-  <a class="toc-link" href="#ch16">16 — Regression &amp; ML</a>
+  <a class="toc-link" href="#ch15">15 : Stats &amp; Hypothesis Tests</a>
+  <a class="toc-link" href="#ch16">16 : Regression &amp; ML</a>
 
   <div class="toc-section">Production</div>
-  <a class="toc-link" href="#ch17">17 — Functions &amp; Scripts</a>
-  <a class="toc-link" href="#ch18">18 — Packaging &amp; Environments</a>
-  <a class="toc-link" href="#ch19">19 — Cheat Sheet</a>
+  <a class="toc-link" href="#ch17">17 : Functions &amp; Scripts</a>
+  <a class="toc-link" href="#ch18">18 : Packaging &amp; Environments</a>
+  <a class="toc-link" href="#ch19">19 : Cheat Sheet</a>
 </nav>
 
 <!-- ══════════ MAIN ══════════ -->
@@ -275,37 +319,51 @@ li { margin-bottom: 6px; }
 <!-- HERO -->
 <div class="hero">
   <h1>Python for Tidyverse Users</h1>
-  <p>A complete, side-by-side course translating your R/tidyverse fluency into Python/pandas mastery — from first line to production ETL.</p>
+  <p>A practical, side-by-side course translating R/tidyverse fluency into Python/pandas : with production caveats, failure modes, exercises, and the semantic differences that cause real bugs.</p>
   <div class="hero-badges">
     <span class="badge badge-r">R / tidyverse</span>
     <span class="badge badge-py">Python / pandas</span>
-    <span class="badge badge-new">20 Chapters</span>
+    <span class="badge badge-new">20 Chapters · Deepened</span>
   </div>
 </div>
 
+<div class="takeaway-box">
+  <div class="enrich-title">How to use this guide</div>
+  <p><strong>Yellow highlights</strong> mark ideas worth remembering. <span class="pitfall">Red labels</span> flag common failure modes, while <span class="production">green labels</span> mark production habits. Each chapter now includes learning objectives, a real-work depth note, and a practice challenge so the guide moves beyond syntax translation.</p>
+</div>
+
+
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch0">Chapter 0 — Why Learn Python When You Know R?</h2>
+<h2 id="ch0">Chapter 0 : Why Learn Python When You Know R?</h2>
 <p class="subtitle">You already think in tidy data. Now add a second superpower.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Know where Python complements rather than replaces R.</li><li>Recognise which tidyverse mental models transfer directly.</li><li>Identify when Python is the stronger production choice.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>Think of the transition as a <span class="key-highlight">change of interface, not a reset of analytical skill</span>. Tidy data, grouping, joins, vectorisation and reproducibility still matter. The biggest shift is that Python is a general-purpose language first and a data-analysis language second. That means file systems, APIs, classes, testing, packaging and deployment appear earlier in real projects.</p></div>
+
 
 <div class="chapter-card">
-<p>As a tidyverse user you already understand the hardest concepts: tidy data principles, piped transformations, grouped operations, and the grammar of graphics. Python won't replace R — it will complement it. Here's why it's worth adding:</p>
+<p>As a tidyverse user you already understand the hardest concepts: tidy data principles, piped transformations, grouped operations, and the grammar of graphics. Python won't replace R : it will complement it. Here's why it's worth adding:</p>
 
 <ul>
-  <li><strong>Engineering integration</strong> — Most production data systems, APIs, and cloud services have Python as a first-class citizen.</li>
-  <li><strong>ML ecosystem</strong> — scikit-learn, PyTorch, TensorFlow, and Hugging Face are Python-native.</li>
-  <li><strong>Web apps &amp; SaaS</strong> — Flask, FastAPI, Streamlit, and Django let you ship products.</li>
-  <li><strong>Job market</strong> — Python consistently tops hiring requirements for data &amp; analytics roles in the UK.</li>
+  <li><strong>Engineering integration</strong> : Most production data systems, APIs, and cloud services have Python as a first-class citizen.</li>
+  <li><strong>ML ecosystem</strong> : scikit-learn, PyTorch, TensorFlow, and Hugging Face are Python-native.</li>
+  <li><strong>Web apps &amp; SaaS</strong> : Flask, FastAPI, Streamlit, and Django let you ship products.</li>
+  <li><strong>Job market</strong> : Python consistently tops hiring requirements for data &amp; analytics roles in the UK.</li>
 </ul>
 
 <div class="callout callout-tip">
   <div class="callout-title">The Good News</div>
-  About 80% of tidyverse operations map directly to pandas. Your mental model transfers — you just need new syntax.
+  About 80% of tidyverse operations map directly to pandas. Your mental model transfers : you just need new syntax.
 </div>
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch1">Chapter 1 — Setup &amp; Environment</h2>
-<p class="subtitle">Getting your Python workspace running — the equivalent of installing R + RStudio + tidyverse.</p>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Take one R analysis you already trust. Mark each step as <strong>input → transformation → validation → output</strong>. Rebuild only the transformation layer in pandas first; then add the engineering pieces around it.</p></div>
+<h2 id="ch1">Chapter 1 : Setup &amp; Environment</h2>
+<p class="subtitle">Getting your Python workspace running : the equivalent of installing R + RStudio + tidyverse.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Create and activate an isolated environment.</li><li>Understand interpreter, package manager and IDE as separate layers.</li><li>Make a project reproducible for another analyst.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>A virtual environment is not just housekeeping. It is a <span class="key-highlight">dependency boundary</span>. In team work, record dependencies with a requirements or project file, avoid installing everything globally, and verify which interpreter your notebook or editor is actually using. <span class="pitfall">Common trap</span>: installing a package into one Python environment while Jupyter is running another.</p></div>
+
 
 <h3>1.1 The R → Python Rosetta Stone (Tools)</h3>
 <div class="table-wrap">
@@ -346,7 +404,7 @@ pip install jupyterlab              # Notebook interface</code></pre>
     <div class="code-label code-label-r">R</div>
     <pre><code>library(tidyverse)
 
-# Everything is loaded — dplyr,
+# Everything is loaded : dplyr,
 # ggplot2, tidyr, readr, etc.
 
 # Interactive: RStudio console
@@ -359,7 +417,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Convention: short aliases
-# pd, np, plt — you'll see these everywhere
+# pd, np, plt : you'll see these everywhere
 
 # Interactive: Jupyter notebook
 # Scripts: .py files</code></pre>
@@ -368,12 +426,17 @@ import matplotlib.pyplot as plt
 
 <div class="callout callout-info">
   <div class="callout-title">Alias Convention</div>
-  <code>import pandas as pd</code> is universal — every tutorial, every StackOverflow answer uses <code>pd</code>. Same for <code>np</code> (numpy), <code>plt</code> (matplotlib), <code>sns</code> (seaborn). Don't fight it!
+  <code>import pandas as pd</code> is universal : every tutorial, every StackOverflow answer uses <code>pd</code>. Same for <code>np</code> (numpy), <code>plt</code> (matplotlib), <code>sns</code> (seaborn). Don't fight it!
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch2">Chapter 2 — Python Syntax Primer</h2>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Create a fresh environment, install only pandas and Jupyter, print <code>sys.executable</code> and <code>pd.__version__</code>, then export the dependency list. Recreate it in a second folder.</p></div>
+<h2 id="ch2">Chapter 2 : Python Syntax Primer</h2>
 <p class="subtitle">The biggest "gotchas" when switching from R to Python.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Read Python control flow without translating every token back to R.</li><li>Use indexing and slicing correctly.</li><li>Choose scalar versus vectorised boolean operators.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>Three habits prevent many R-to-Python bugs: remember <strong>0-based indexing</strong>, remember that slices exclude the end point, and distinguish scalar <code>and/or/not</code> from vectorised <code>&amp;/|/~</code>. With pandas masks, parenthesise each condition. <span class="pitfall">Common trap</span>: <code>df[a &gt; 1 &amp; b &lt; 3]</code> is not the safe form; use <code>df[(a &gt; 1) &amp; (b &lt; 3)]</code>.</p></div>
+
 
 <h3>2.1 Indentation Matters (No Curly Braces)</h3>
 <div class="code-compare">
@@ -475,8 +538,13 @@ x[1:3]  # [20, 30] (end exclusive)</code></pre>
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch3">Chapter 3 — Data Types &amp; Structures</h2>
-<p class="subtitle">Lists, dictionaries, tuples — the building blocks you don't have in R.</p>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Predict the output of five slices before running them: <code>x[:3]</code>, <code>x[1:4]</code>, <code>x[-1]</code>, <code>x[::-1]</code>, and <code>x[::2]</code>. Then verify your predictions.</p></div>
+<h2 id="ch3">Chapter 3 : Data Types &amp; Structures</h2>
+<p class="subtitle">Lists, dictionaries, tuples : the building blocks you don't have in R.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Distinguish list, tuple, dict, NumPy array, Series and DataFrame.</li><li>Choose mutable versus immutable structures intentionally.</li><li>Understand why vectorised arrays behave differently from lists.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>Python containers have different semantics. Lists are flexible object containers; NumPy arrays are homogeneous computational structures; pandas Series add labels and missing-data behaviour. <span class="key-highlight">Choose the structure based on the operation you need</span>, not because the syntax looks familiar. For tabular work, moving too much logic into nested lists and dicts often makes later validation harder.</p></div>
+
 
 <h3>3.1 Core Data Types</h3>
 <div class="table-wrap">
@@ -496,14 +564,14 @@ x[1:3]  # [20, 30] (end exclusive)</code></pre>
 <h3>3.2 The Big Insight: Python Lists ≠ R Vectors</h3>
 <div class="code-compare">
   <div class="code-panel">
-    <div class="code-label code-label-r">R — vectorised by default</div>
+    <div class="code-label code-label-r">R : vectorised by default</div>
     <pre><code>x <- c(1, 2, 3, 4, 5)
 x * 2          # 2, 4, 6, 8, 10 ✓
 x[x > 3]      # 4, 5           ✓
 mean(x)        # 3              ✓</code></pre>
   </div>
   <div class="code-panel">
-    <div class="code-label code-label-py">PYTHON — use numpy for vectorised ops</div>
+    <div class="code-label code-label-py">PYTHON : use numpy for vectorised ops</div>
     <pre><code>x = [1, 2, 3, 4, 5]
 # x * 2  → [1,2,3,4,5,1,2,3,4,5] 😱
 
@@ -563,8 +631,13 @@ keep(1:10, ~ .x %% 2 == 0)</code></pre>
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch4">Chapter 4 — Pandas = dplyr + tidyr</h2>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Build the same small dataset as a list of dicts, a dict of lists and a DataFrame. Compare how you select one person, one variable and all rows satisfying a condition.</p></div>
+<h2 id="ch4">Chapter 4 : Pandas = dplyr + tidyr</h2>
 <p class="subtitle">The single library that replaces most of the tidyverse.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Understand Series versus DataFrame return types.</li><li>Inspect schema, nulls and cardinality before transforming.</li><li>Use chaining without hiding intermediate assumptions.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>Pandas is powerful, but it is not a one-to-one implementation of dplyr. Index labels, dtype coercion, views/copies and alignment can affect results. A strong workflow begins with a <span class="key-highlight">data contract</span>: expected columns, types, uniqueness, nullability and row grain. Establish that before the first long method chain.</p></div>
+
 
 <h3>4.1 Creating DataFrames</h3>
 <div class="code-compare">
@@ -612,8 +685,13 @@ df.describe() # like summary()</code></pre>
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch5">Chapter 5 — Selecting &amp; Filtering</h2>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>For a sample DataFrame, write five assertions: required columns exist, ID is unique, date parses, amount is numeric, and category has no unexpected levels.</p></div>
+<h2 id="ch5">Chapter 5 : Selecting &amp; Filtering</h2>
 <p class="subtitle">The dplyr verbs <code>select()</code> and <code>filter()</code> in pandas.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Select columns by name, type and pattern.</li><li>Filter safely with masks and query expressions.</li><li>Know when label-based and positional indexing differ.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>Learn <code>.loc</code> and <code>.iloc</code> early. <code>.loc</code> is label-oriented; <code>.iloc</code> is position-oriented. This distinction becomes critical when the index is not a simple 0…n sequence. <span class="pitfall">Common trap</span>: assuming the DataFrame index is a row number after filtering, sorting or concatenation.</p></div>
+
 
 <h3>5.1 Selecting Columns</h3>
 <div class="code-compare">
@@ -708,8 +786,13 @@ df.nlargest(2, "score")        # top N</code></pre>
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch6">Chapter 6 — Mutating &amp; Summarising</h2>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Filter a DataFrame, deliberately keep the old index, then compare <code>.loc</code>, <code>.iloc</code> and <code>.reset_index(drop=True)</code>. Explain the difference in one sentence.</p></div>
+<h2 id="ch6">Chapter 6 : Mutating &amp; Summarising</h2>
 <p class="subtitle"><code>mutate()</code>, <code>summarise()</code>, and <code>group_by()</code> translated to pandas.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Create derived columns without unnecessary row-wise loops.</li><li>Separate aggregation from transformation.</li><li>Use groupby results with predictable output shape.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>The performance hierarchy matters: prefer vectorised expressions, then built-in groupby operations, and use row-wise <code>apply(axis=1)</code> only when necessary. <span class="production">Production habit</span>: make aggregation names explicit and reset or preserve indexes deliberately so downstream joins do not depend on accidental index structure.</p></div>
+
 
 <h3>6.1 Creating New Columns (mutate)</h3>
 <div class="code-compare">
@@ -843,10 +926,15 @@ df["rank"] = (
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch7">Chapter 7 — Joins &amp; Reshaping</h2>
-<p class="subtitle">dplyr joins and tidyr pivots, translated.</p>
 
-<h3>7.1 Joins</h3>
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Compute a department z-score using <code>groupby().transform()</code>, then produce a one-row-per-department summary with <code>.agg()</code>. Confirm that the two outputs have different grains.</p></div>
+<h2 id="ch7">Chapter 7 : Joins &amp; Reshaping</h2>
+<p class="subtitle">dplyr joins and tidyr pivots, translated.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Choose join type from the business question.</li><li>Validate key cardinality before merging.</li><li>Reshape without accidentally aggregating duplicates.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>A join is a data-quality operation, not just syntax. Before merging, ask whether each key is one-to-one, one-to-many or many-to-many. Pandas can validate this with <code>validate=</code> in <code>merge</code>. <span class="pitfall">High-risk trap</span>: an unintended many-to-many join can multiply rows while still producing syntactically valid output.</p></div>
+
+
+<h3>7.1 Joins</h3><p>For example, imagine the cleaned orders table being joined to a customer master table. Before merging, verify whether <code>customer_id</code> is unique in the customer table. If it is not, a simple left join can unexpectedly multiply order rows.</p>
 <div class="code-compare">
   <div class="code-panel">
     <div class="code-label code-label-r">R</div>
@@ -921,8 +1009,13 @@ df.pivot_table(
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch8">Chapter 8 — Strings, Dates &amp; Factors</h2>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Create duplicate keys on both sides of a merge and observe the row explosion. Then repeat with <code>validate="one_to_many"</code> or the appropriate rule and inspect the failure.</p></div>
+<h2 id="ch8">Chapter 8 : Strings, Dates &amp; Factors</h2>
 <p class="subtitle">stringr, lubridate, forcats → pandas str/dt accessors.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Use vectorised string and datetime accessors.</li><li>Handle time zones and parsing failures explicitly.</li><li>Treat categoricals as both semantics and memory optimisation.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>Real date work needs more than extracting year and month. Decide whether timestamps are naive or timezone-aware, how daylight-saving changes are handled, and what invalid strings should become. For strings, specify whether matching is literal or regex. <span class="pitfall">Common trap</span>: silent coercion can turn bad dates into <code>NaT</code> and then quietly remove them in later filters.</p></div>
+
 
 <h3>8.1 String Operations</h3>
 <div class="code-compare">
@@ -989,14 +1082,19 @@ fct_lump_n(x, n = 5)</code></pre>
                ordered=True)
 df["col"] = df["col"].cat.reorder_categories(
     ["High","Med","Low"])
-# Reorder by value — set after sorting
-# Lump — use value_counts + threshold</code></pre>
+# Reorder by value : set after sorting
+# Lump : use value_counts + threshold</code></pre>
   </div>
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch9">Chapter 9 — Reading &amp; Writing Data</h2>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Parse a column containing valid dates, one invalid date and two time zones. Count parsing failures explicitly before doing any date arithmetic.</p></div>
+<h2 id="ch9">Chapter 9 : Reading &amp; Writing Data</h2>
 <p class="subtitle">readr, readxl, haven → pandas read_* functions.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Choose storage formats based on schema and workload.</li><li>Control types and missing values at ingestion.</li><li>Read large data without exhausting memory.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>CSV is an interchange format, not a schema. For repeated analytical workflows, Parquet usually gives better type preservation and column pruning. But avoid universal speed/size promises: performance depends on data shape, compression, engine and hardware. <span class="production">Production habit</span>: validate row counts and key statistics after every important read/write boundary.</p></div>
+
 
 <div class="table-wrap">
 <table>
@@ -1013,7 +1111,7 @@ df["col"] = df["col"].cat.reorder_categories(
 </div>
 
 <div class="code-single">
-<div class="code-label">PYTHON — Common read_csv options</div>
+<div class="code-label">PYTHON : Common read_csv options</div>
 <pre><code>df = pd.read_csv(
     "data.csv",
     usecols=["name", "age", "score"],  # select columns on read
@@ -1027,7 +1125,7 @@ df["col"] = df["col"].cat.reorder_categories(
 # Writing
 df.to_csv("output.csv", index=False)     # index=False prevents row numbers
 df.to_excel("output.xlsx", index=False)
-df.to_parquet("output.parquet")           # fast, compressed — prefer this!</code></pre>
+df.to_parquet("output.parquet")           # fast, compressed : prefer this!</code></pre>
 </div>
 
 <div class="callout callout-tip">
@@ -1036,12 +1134,240 @@ df.to_parquet("output.parquet")           # fast, compressed — prefer this!</c
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch10">Chapter 10 — ETL Pipelines</h2>
-<p class="subtitle">Extract, Transform, Load — building real data workflows in Python.</p>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Read the same dataset from CSV and Parquet. Compare dtypes, file size and read time on your machine, then document the result rather than assuming a fixed multiplier.</p></div>
+
+<h3>9.4 Data Preprocessing: Inspect Before You Clean</h3>
+<p>Cleaning should begin with diagnosis. Before changing values, establish the dataset's <strong>grain</strong>, expected schema, missingness, duplicate rules, ranges, and category vocabulary. A useful principle is <span class="key-highlight">profile first, transform second, validate third</span>.</p>
+
+<div class="code-single">
+<div class="code-label">PYTHON: QUICK DATA PROFILE</div>
+<pre><code>def profile_data(df: pd.DataFrame) -> pd.DataFrame:
+    return pd.DataFrame({
+        "dtype": df.dtypes.astype(str),
+        "missing_n": df.isna().sum(),
+        "missing_pct": (df.isna().mean() * 100).round(1),
+        "unique_n": df.nunique(dropna=False),
+    }).sort_values("missing_pct", ascending=False)
+
+print(df.shape)
+print(df.head())
+print(profile_data(df))
+print(df.describe(include="all").T)</code></pre>
+</div>
+
+<div class="workflow-box">
+<h4>Pre-cleaning questions</h4>
+<ul class="mini-checklist">
+<li>What does one row represent?</li>
+<li>Which columns form the business key?</li>
+<li>Which fields are mandatory?</li>
+<li>Which columns should be numeric, dates, categories, or text?</li>
+<li>Which values are impossible versus merely unusual?</li>
+<li>Are duplicates exact duplicates or conflicting records?</li>
+<li>Is missingness random, structural, or meaningful?</li>
+<li>Which transformations must be auditable?</li>
+</ul>
+</div>
+
+<h3>9.5 Running Example: Messy Customer Orders</h3>
+<p>The examples below use one deliberately messy dataset throughout the cleaning workflow. Reusing the same data makes it easier to see how individual cleaning operations combine into a reproducible pipeline.</p>
+
+<div class="code-single">
+<div class="code-label">PYTHON: CREATE MESSY INPUT</div>
+<pre><code>raw = pd.DataFrame({
+    " Customer ID ": ["C001", "C002", "C002", " C003 ", None],
+    "Order Date": ["2026-01-05", "05/02/2026", "05/02/2026",
+                   "not-a-date", "2026-03-01"],
+    "Amount GBP": ["£1,250.00", " 99.50 ", "99.50", "-20", "unknown"],
+    "Region": [" london", "LONDON ", "LONDON ", "North", ""],
+    "Email": ["ALICE@example.com", "bob@example.com ",
+              "bob@example.com ", "bad-email", None]
+})</code></pre>
+</div>
+
+<h3>9.6 Standardising Column Names and Text</h3>
+<div class="code-single">
+<div class="code-label">PYTHON</div>
+<pre><code>import re
+
+def clean_column_name(name: str) -> str:
+    name = name.strip().lower()
+    name = re.sub(r"[^a-z0-9]+", "_", name)
+    return name.strip("_")
+
+df = raw.copy()
+df.columns = [clean_column_name(c) for c in df.columns]
+
+text_cols = ["customer_id", "region", "email"]
+for col in text_cols:
+    df[col] = df[col].astype("string").str.strip()
+
+df["region"] = df["region"].str.title()
+df["email"] = df["email"].str.lower()</code></pre>
+</div>
+
+<div class="callout callout-info">
+<div class="callout-title">Why standardise early?</div>
+Consistent names reduce branching later in the pipeline. If one source sends <code>Customer ID</code> and another sends <code>customer_id</code>, normalising immediately lets downstream code use one stable schema.
+</div>
+
+<h3>9.7 Converting Dirty Numeric Fields Safely</h3>
+<div class="code-single">
+<div class="code-label">PYTHON</div>
+<pre><code>df["amount_gbp"] = (
+    df["amount_gbp"]
+      .str.replace("£", "", regex=False)
+      .str.replace(",", "", regex=False)
+      .str.strip()
+)
+
+df["amount_gbp"] = pd.to_numeric(
+    df["amount_gbp"],
+    errors="coerce"     # invalid values become NaN
+)
+
+# Always measure what coercion changed
+invalid_amounts = df["amount_gbp"].isna().sum()
+print(f"Amounts that could not be parsed: {invalid_amounts}")</code></pre>
+</div>
+
+<p><code>errors="coerce"</code> is useful, but it should not become a way to hide bad data. Count or quarantine the values that failed conversion. In important pipelines, preserve the original raw field so you can investigate why parsing failed.</p>
+
+<h3>9.8 Dates: Multiple Formats, Invalid Values, and Explicit Failure Handling</h3>
+<div class="code-single">
+<div class="code-label">PYTHON</div>
+<pre><code># For mixed real-world formats, parse deliberately.
+# dayfirst=True is appropriate only when the source convention supports it.
+df["order_date_parsed"] = pd.to_datetime(
+    df["order_date"],
+    errors="coerce",
+    dayfirst=True
+)
+
+bad_dates = df.loc[
+    df["order_date_parsed"].isna() & df["order_date"].notna(),
+    ["customer_id", "order_date"]
+]
+
+print("Unparseable dates:")
+print(bad_dates)</code></pre>
+</div>
+
+<h3>9.9 Missing Data: Do Not Fill Everything With Zero</h3>
+<p>Missing values can mean different things. A missing transaction amount may indicate a broken record, while a missing optional comment may be perfectly valid. Decide treatment <strong>column by column</strong>.</p>
+
+<div class="table-wrap">
+<table>
+<tr><th>Situation</th><th>Possible action</th><th>Reason</th></tr>
+<tr><td>Mandatory identifier missing</td><td>Reject or quarantine row</td><td>Cannot reliably identify entity</td></tr>
+<tr><td>Optional category missing</td><td>Use explicit "Unknown"</td><td>Preserves row while making missingness visible</td></tr>
+<tr><td>Numeric measure missing</td><td>Investigate, impute, or leave missing</td><td>Zero may have a real business meaning</td></tr>
+<tr><td>Model feature missing</td><td>Fit imputation inside ML pipeline</td><td>Prevents leakage and preserves reproducibility</td></tr>
+</table>
+</div>
+
+<div class="code-single">
+<div class="code-label">PYTHON: COLUMN-SPECIFIC MISSINGNESS RULES</div>
+<pre><code># Mandatory key
+rejected_missing_id = df[df["customer_id"].isna()].copy()
+df = df[df["customer_id"].notna()].copy()
+
+# Optional category
+df["region"] = df["region"].fillna("Unknown")
+df["region"] = df["region"].replace("", "Unknown")
+
+# Do NOT automatically do this:
+# df["amount_gbp"] = df["amount_gbp"].fillna(0)
+# unless zero is genuinely the correct business interpretation.</code></pre>
+</div>
+
+<h3>9.10 Duplicate Detection: Exact, Key-Based, and Conflicting</h3>
+<div class="code-single">
+<div class="code-label">PYTHON</div>
+<pre><code># 1. Exact duplicate rows
+exact_dupes = df[df.duplicated(keep=False)]
+
+# 2. Duplicate business keys
+key_cols = ["customer_id", "order_date_parsed", "amount_gbp"]
+key_dupes = df[df.duplicated(subset=key_cols, keep=False)]
+
+# 3. Remove only after defining the rule
+df = df.drop_duplicates(subset=key_cols, keep="first")</code></pre>
+</div>
+
+<p><span class="pitfall">Do not use <code>drop_duplicates()</code> blindly.</span> Two rows with the same customer and date might represent two legitimate orders. Deduplication requires a business key and a rule for deciding which record survives.</p>
+
+<h3>9.11 Outliers and Invalid Values</h3>
+<p>An outlier is not automatically an error. Separate <strong>invalid values</strong>, which violate known rules, from <strong>unusual values</strong>, which may be real.</p>
+
+<div class="code-single">
+<div class="code-label">PYTHON: RULE-BASED AND STATISTICAL FLAGS</div>
+<pre><code># Business rule
+df["invalid_amount"] = df["amount_gbp"] < 0
+
+# IQR flag for investigation, not automatic deletion
+q1 = df["amount_gbp"].quantile(0.25)
+q3 = df["amount_gbp"].quantile(0.75)
+iqr = q3 - q1
+
+lower = q1 - 1.5 * iqr
+upper = q3 + 1.5 * iqr
+
+df["amount_outlier"] = ~df["amount_gbp"].between(lower, upper)</code></pre>
+</div>
+
+<h3>9.12 Category Cleaning and Mapping</h3>
+<div class="code-single">
+<div class="code-label">PYTHON</div>
+<pre><code>region_map = {
+    "London": "London",
+    "Greater London": "London",
+    "N. East": "North East",
+    "North-East": "North East",
+}
+
+df["region"] = (
+    df["region"]
+      .str.strip()
+      .str.title()
+      .replace(region_map)
+)
+
+allowed_regions = {"London", "North", "North East", "South", "Unknown"}
+unexpected = sorted(set(df["region"].dropna()) - allowed_regions)
+
+if unexpected:
+    print("Unexpected region values:", unexpected)</code></pre>
+</div>
+
+<h3>9.13 Cleaning Emails and Other Pattern-Based Fields</h3>
+<div class="code-single">
+<div class="code-label">PYTHON</div>
+<pre><code>email_pattern = r"^[^@\s]+@[^@\s]+\.[^@\s]+$"
+
+df["email_valid"] = df["email"].str.match(
+    email_pattern,
+    na=False
+)
+
+bad_emails = df.loc[
+    ~df["email_valid"],
+    ["customer_id", "email"]
+]</code></pre>
+</div>
+
+<p>Regex validation is useful for basic structural checks, but it does not prove that an email address exists. Match the strictness of validation to the business purpose.</p>
+
+<h2 id="ch10">Chapter 10 : ETL Pipelines</h2>
+<p class="subtitle">Extract, Transform, Load : building real data workflows in Python.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Separate extract, transform, validate and load concerns.</li><li>Make pipelines idempotent and observable.</li><li>Fail loudly on broken data contracts.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>A production ETL pipeline needs more than a clean function chain. Add configuration, structured logging, retries for transient I/O, atomic outputs, checkpoints, metrics and tests. Avoid embedding mutable business facts:such as an exchange rate:directly in transformation code without a date/source. <span class="production">Production habit</span>: every run should answer what input was processed, what changed, what failed and what was written.</p></div>
+
 
 <h3>10.1 ETL Pattern</h3>
 <div class="code-single">
-<div class="code-label">PYTHON — Full ETL Pipeline</div>
+<div class="code-label">PYTHON : Full ETL Pipeline</div>
 <pre><code>import pandas as pd
 import numpy as np
 from pathlib import Path
@@ -1157,7 +1483,7 @@ if __name__ == "__main__":
 <h3>10.3 The R Comparison</h3>
 <div class="code-compare">
   <div class="code-panel">
-    <div class="code-label code-label-r">R — Typical pipeline</div>
+    <div class="code-label code-label-r">R : Typical pipeline</div>
     <pre><code>library(tidyverse)
 library(fs)
 
@@ -1179,7 +1505,7 @@ clean <- raw %>%
 write_parquet(clean, "data/clean.parquet")</code></pre>
   </div>
   <div class="code-panel">
-    <div class="code-label code-label-py">PYTHON — Same pipeline</div>
+    <div class="code-label code-label-py">PYTHON : Same pipeline</div>
     <pre><code>import pandas as pd
 from pathlib import Path
 
@@ -1208,8 +1534,279 @@ clean.to_parquet("data/clean.parquet")</code></pre>
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch11">Chapter 11 — APIs &amp; Web Scraping</h2>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Add a run ID, input row count, output row count, rejected-row count and elapsed time to the example pipeline. Make the load step write to a temporary file before replacing the final output.</p></div>
+
+<h3>10.4 Automating Reusable Data Cleaning</h3>
+<p>Once cleaning rules stabilise, move them out of ad hoc notebook cells and into reusable functions. The goal is not simply shorter code. The goal is <span class="key-highlight">the same input rules producing the same output every run</span>.</p>
+
+<div class="code-single">
+<div class="code-label">PYTHON: REUSABLE CLEANING FUNCTION</div>
+<pre><code>from dataclasses import dataclass
+import pandas as pd
+import re
+
+@dataclass
+class CleaningReport:
+    input_rows: int
+    output_rows: int
+    rejected_rows: int
+    duplicate_rows_removed: int
+    invalid_dates: int
+    invalid_amounts: int
+
+def clean_orders(raw: pd.DataFrame) -> tuple[pd.DataFrame, CleaningReport]:
+    df = raw.copy()
+    input_rows = len(df)
+
+    # Standardise column names
+    df.columns = [
+        re.sub(r"[^a-z0-9]+", "_", c.strip().lower()).strip("_")
+        for c in df.columns
+    ]
+
+    # Standardise text
+    for col in ["customer_id", "region", "email"]:
+        if col in df:
+            df[col] = df[col].astype("string").str.strip()
+
+    df["region"] = df["region"].str.title().replace("", pd.NA)
+    df["email"] = df["email"].str.lower()
+
+    # Parse dates
+    df["order_date"] = pd.to_datetime(
+        df["order_date"],
+        errors="coerce",
+        dayfirst=True
+    )
+    invalid_dates = int(df["order_date"].isna().sum())
+
+    # Parse currency
+    amount_raw = (
+        df["amount_gbp"].astype("string")
+          .str.replace("£", "", regex=False)
+          .str.replace(",", "", regex=False)
+          .str.strip()
+    )
+    df["amount_gbp"] = pd.to_numeric(amount_raw, errors="coerce")
+    invalid_amounts = int(df["amount_gbp"].isna().sum())
+
+    # Reject records that cannot satisfy the minimum contract
+    reject_mask = (
+        df["customer_id"].isna()
+        | df["order_date"].isna()
+        | df["amount_gbp"].isna()
+        | (df["amount_gbp"] < 0)
+    )
+    rejected = df.loc[reject_mask].copy()
+    clean = df.loc[~reject_mask].copy()
+
+    # Deduplicate using an explicit business key
+    key = ["customer_id", "order_date", "amount_gbp"]
+    before = len(clean)
+    clean = clean.drop_duplicates(subset=key, keep="first")
+    duplicates_removed = before - len(clean)
+
+    clean["region"] = clean["region"].fillna("Unknown")
+
+    report = CleaningReport(
+        input_rows=input_rows,
+        output_rows=len(clean),
+        rejected_rows=len(rejected),
+        duplicate_rows_removed=duplicates_removed,
+        invalid_dates=invalid_dates,
+        invalid_amounts=invalid_amounts,
+    )
+
+    return clean.reset_index(drop=True), report</code></pre>
+</div>
+
+<h3>10.5 Separate Clean Data From Rejected Data</h3>
+<p>In many real pipelines, silently dropping bad rows is unacceptable. Keep a reject table with a reason so the pipeline is auditable and upstream problems can be fixed.</p>
+
+<div class="code-single">
+<div class="code-label">PYTHON: QUARANTINE WITH REASONS</div>
+<pre><code>def add_rejection_reason(df: pd.DataFrame) -> pd.DataFrame:
+    reasons = pd.Series("", index=df.index, dtype="string")
+
+    reasons = reasons.mask(
+        df["customer_id"].isna(),
+        reasons + "missing_customer_id;"
+    )
+    reasons = reasons.mask(
+        df["order_date"].isna(),
+        reasons + "invalid_order_date;"
+    )
+    reasons = reasons.mask(
+        df["amount_gbp"].isna(),
+        reasons + "invalid_amount;"
+    )
+    reasons = reasons.mask(
+        df["amount_gbp"].lt(0).fillna(False),
+        reasons + "negative_amount;"
+    )
+
+    return df.assign(
+        rejection_reason=reasons.str.rstrip(";")
+    )</code></pre>
+</div>
+
+<h3>10.6 Configuration-Driven Cleaning</h3>
+<p>If many datasets share similar rules, put stable rules in configuration rather than copying code. This makes the cleaning engine reusable while keeping dataset-specific decisions visible.</p>
+
+<div class="code-single">
+<div class="code-label">PYTHON: SIMPLE CONFIGURATION</div>
+<pre><code>CLEANING_RULES = {
+    "required_columns": ["customer_id", "order_date", "amount_gbp"],
+    "date_columns": ["order_date"],
+    "numeric_columns": ["amount_gbp"],
+    "dedupe_key": ["customer_id", "order_date", "amount_gbp"],
+    "allowed_regions": ["London", "North", "North East", "South", "Unknown"],
+}
+
+def validate_required_columns(df, required):
+    missing = sorted(set(required) - set(df.columns))
+    if missing:
+        raise ValueError(f"Missing required columns: {missing}")</code></pre>
+</div>
+
+<h3>10.7 Batch Cleaning Multiple Files Automatically</h3>
+<div class="code-single">
+<div class="code-label">PYTHON: FOLDER AUTOMATION</div>
+<pre><code>from pathlib import Path
+import logging
+
+logger = logging.getLogger(__name__)
+
+def clean_folder(input_dir: str, output_dir: str) -> None:
+    input_path = Path(input_dir)
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+
+    files = sorted(input_path.glob("*.csv"))
+    logger.info("Found %s CSV files", len(files))
+
+    for file in files:
+        try:
+            raw = pd.read_csv(file)
+            clean, report = clean_orders(raw)
+
+            destination = output_path / f"{file.stem}_clean.parquet"
+            clean.to_parquet(destination, index=False)
+
+            logger.info(
+                "%s: %s input, %s output, %s rejected",
+                file.name,
+                report.input_rows,
+                report.output_rows,
+                report.rejected_rows,
+            )
+        except Exception:
+            logger.exception("Failed cleaning %s", file.name)
+            raise</code></pre>
+</div>
+
+<h3>10.8 Make Cleaning Idempotent</h3>
+<p>An idempotent cleaning step produces the same result if you run it twice. This matters when jobs retry or when analysts rerun a pipeline manually.</p>
+
+<div class="code-single">
+<div class="code-label">PYTHON: SIMPLE IDEMPOTENCE TEST</div>
+<pre><code>clean_once, _ = clean_orders(raw)
+clean_twice, _ = clean_orders(clean_once)
+
+pd.testing.assert_frame_equal(
+    clean_once,
+    clean_twice
+)</code></pre>
+</div>
+
+<h3>10.9 Testing Cleaning Rules</h3>
+<div class="code-single">
+<div class="code-label">PYTHON: PYTEST EXAMPLES</div>
+<pre><code>def test_negative_amount_is_rejected():
+    raw = pd.DataFrame({
+        "customer_id": ["C1"],
+        "order_date": ["2026-01-01"],
+        "amount_gbp": ["-10"],
+        "region": ["London"],
+        "email": ["a@example.com"],
+    })
+
+    clean, report = clean_orders(raw)
+
+    assert clean.empty
+    assert report.rejected_rows == 1
+
+
+def test_duplicate_order_is_removed():
+    raw = pd.DataFrame({
+        "customer_id": ["C1", "C1"],
+        "order_date": ["2026-01-01", "2026-01-01"],
+        "amount_gbp": ["10", "10"],
+        "region": ["London", "London"],
+        "email": ["a@example.com", "a@example.com"],
+    })
+
+    clean, report = clean_orders(raw)
+
+    assert len(clean) == 1
+    assert report.duplicate_rows_removed == 1</code></pre>
+</div>
+
+<h3>10.10 Scheduling the Cleaning Job</h3>
+<p>Keep the Python script independent from the scheduler. First make <code>python clean_orders.py</code> reliable, then let cron, Windows Task Scheduler, Airflow, Prefect, Dagster, a CI system, or a cloud scheduler invoke it.</p>
+
+<div class="code-single">
+<div class="code-label">TERMINAL: CRON EXAMPLE</div>
+<pre><code># Run every day at 06:00
+0 6 * * * /path/to/venv/bin/python /project/clean_orders.py</code></pre>
+</div>
+
+<div class="callout callout-warn">
+<div class="callout-title">Automation changes the standard</div>
+Code that runs unattended needs stronger safeguards than code run interactively. Add logs, explicit exit failures, stable paths, secrets management, data-quality thresholds, and notifications at the orchestration layer.
+</div>
+
+<h3>10.11 End-to-End Running Example</h3>
+<div class="code-single">
+<div class="code-label">PYTHON: FROM RAW FILE TO TRUSTED OUTPUT</div>
+<pre><code>def run_pipeline(source: str, clean_path: str) -> CleaningReport:
+    logger.info("Reading %s", source)
+    raw = pd.read_csv(source)
+
+    validate_required_columns(
+        raw.rename(columns=lambda c: re.sub(
+            r"[^a-z0-9]+", "_", c.strip().lower()
+        ).strip("_")),
+        CLEANING_RULES["required_columns"],
+    )
+
+    clean, report = clean_orders(raw)
+
+    # Final output assertions
+    assert clean["customer_id"].notna().all()
+    assert clean["order_date"].notna().all()
+    assert clean["amount_gbp"].ge(0).all()
+    assert not clean.duplicated(
+        CLEANING_RULES["dedupe_key"]
+    ).any()
+
+    clean.to_parquet(clean_path, index=False)
+
+    logger.info("Cleaning report: %s", report)
+    return report</code></pre>
+</div>
+
+<div class="takeaway-box">
+<div class="enrich-title">Cleaning pipeline mental model</div>
+<p><strong>Raw input → profile → standardise → parse → validate → flag/reject → deduplicate → enrich → validate again → write clean output + audit report.</strong> Keeping these stages explicit makes the pipeline easier to test, automate, debug, and explain.</p>
+</div>
+
+<h2 id="ch11">Chapter 11 : APIs &amp; Web Scraping</h2>
 <p class="subtitle">httr/rvest → requests/BeautifulSoup.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Call APIs defensively, not just successfully.</li><li>Handle pagination, authentication, rate limits and timeouts.</li><li>Scrape only when permitted and structurally appropriate.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>Network code must assume failure. Set explicit timeouts, call <code>raise_for_status()</code>, retry only transient errors, respect rate-limit headers, and never hard-code secrets in source code. For scraping, review site terms and robots guidance, identify yourself appropriately where required, and prefer an official API when available. <span class="pitfall">Common trap</span>: a loop without timeout/backoff can hang or hammer a service.</p></div>
+
 
 <h3>11.1 Calling APIs</h3>
 <div class="code-compare">
@@ -1269,7 +1866,7 @@ df = pd.DataFrame(rows, columns=["Rank", "Country", "GDP"])</code></pre>
 
 <h3>11.3 Paginating Through an API</h3>
 <div class="code-single">
-<div class="code-label">PYTHON — Real-world pagination pattern</div>
+<div class="code-label">PYTHON : Real-world pagination pattern</div>
 <pre><code>def fetch_all_pages(base_url: str, api_key: str) -> pd.DataFrame:
     """Paginate through a REST API, collecting all results."""
     all_data = []
@@ -1299,8 +1896,13 @@ df = pd.DataFrame(rows, columns=["Rank", "Country", "GDP"])</code></pre>
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch12">Chapter 12 — SQL from Python</h2>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Extend the pagination function with a timeout, bounded retry/backoff, a maximum-page safety limit and logging of status code/page number. Load the API key from an environment variable.</p></div>
+<h2 id="ch12">Chapter 12 : SQL from Python</h2>
 <p class="subtitle">DBI/dbplyr → SQLAlchemy/pandas.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Use parameterised SQL safely.</li><li>Decide what work belongs in SQL versus pandas.</li><li>Manage database connections and transactions deliberately.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>Push filtering, projection and aggregation to the database when it reduces data movement. Pull only the rows and columns needed for local analysis. Never build SQL by concatenating user-controlled strings; use parameters. <span class="production">Production habit</span>: treat credentials, connection pooling and transaction boundaries as part of the pipeline design.</p></div>
+
 
 <div class="code-compare">
   <div class="code-panel">
@@ -1345,7 +1947,7 @@ engine.dispose()</code></pre>
 </div>
 
 <div class="code-single">
-<div class="code-label">PYTHON — Writing DataFrames to SQL</div>
+<div class="code-label">PYTHON : Writing DataFrames to SQL</div>
 <pre><code># Write a DataFrame to a database table
 df.to_sql(
     "clean_employees",      # table name
@@ -1365,8 +1967,13 @@ engine = create_engine(
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch13">Chapter 13 — Matplotlib &amp; Seaborn</h2>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Rewrite one pandas groupby as SQL, compare row counts and results, then benchmark whether doing the aggregation in the database reduces transferred data.</p></div>
+<h2 id="ch13">Chapter 13 : Matplotlib &amp; Seaborn</h2>
 <p class="subtitle">ggplot2 → matplotlib + seaborn (the grammar of graphics, translated).</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Choose matplotlib for control and seaborn for statistical defaults.</li><li>Build charts around a question, not a chart type.</li><li>Make labels, scales and uncertainty explicit.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>A chart is an analytical claim. Before styling, decide the comparison, denominator, ordering and uncertainty you want the reader to see. Avoid decorative palettes that encode no meaning. For reproducibility, keep plotting functions separate from data preparation and pass an explicit <code>ax</code>. <span class="key-highlight">Highlight the finding in the title or annotation:not merely the geometry.</span></p></div>
+
 
 <h3>13.1 The Mental Model</h3>
 <div class="table-wrap">
@@ -1454,8 +2061,13 @@ sns.heatmap(df.select_dtypes("number").corr(),
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch14">Chapter 14 — Plotly Interactive</h2>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Take one chart and write a conclusion-first title, sort categories by the metric, add units, and annotate the most decision-relevant point. Then remove any legend or decoration that does not carry information.</p></div>
+<h2 id="ch14">Chapter 14 : Plotly Interactive</h2>
 <p class="subtitle">plotly in R → plotly in Python (nearly identical!).</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Use interactivity when it adds analytical value.</li><li>Design hover data and filters intentionally.</li><li>Know when a static chart communicates faster.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>Interactive charts are most useful for exploration, dense detail and user-driven filtering. They are weaker when the audience needs one unambiguous takeaway. Keep hover fields minimal, label axes even when tooltips exist, and test mobile rendering. <span class="pitfall">Common trap</span>: interactivity can hide the key message behind user effort.</p></div>
+
 
 <div class="code-compare">
   <div class="code-panel">
@@ -1487,12 +2099,17 @@ fig.write_html("trend.html")</code></pre>
 
 <div class="callout callout-tip">
   <div class="callout-title">Plotly Express</div>
-  <code>plotly.express</code> (imported as <code>px</code>) is the high-level API — one function per chart type, very similar to ggplot. Use <code>plotly.graph_objects</code> for full customisation.
+  <code>plotly.express</code> (imported as <code>px</code>) is the high-level API : one function per chart type, very similar to ggplot. Use <code>plotly.graph_objects</code> for full customisation.
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch15">Chapter 15 — Statistics &amp; Hypothesis Tests</h2>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Create static and interactive versions of the same chart. Ask which question each version answers faster, and keep only the interactive controls that change that answer.</p></div>
+<h2 id="ch15">Chapter 15 : Statistics &amp; Hypothesis Tests</h2>
 <p class="subtitle">stats::t.test, chisq.test → scipy.stats.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Connect statistical tests to assumptions and effect sizes.</li><li>Distinguish statistical significance from practical importance.</li><li>Report uncertainty rather than only p-values.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>A test is the end of a reasoning chain: define the estimand, inspect the data-generating process, check assumptions, choose the test, quantify effect size and uncertainty, then interpret in context. Multiple testing, non-independence and optional stopping can invalidate otherwise correct syntax. <span class="key-highlight">Report the estimate and confidence interval alongside the p-value.</span></p></div>
+
 
 <div class="code-compare">
   <div class="code-panel">
@@ -1566,8 +2183,13 @@ print(f"95% CI: ({result.confidence_interval.low:.2f}, "
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch16">Chapter 16 — Regression &amp; Machine Learning</h2>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>For a two-group comparison, report group summaries, mean/median difference, confidence interval, effect size and p-value. Add one sentence on the assumptions that would change your conclusion.</p></div>
+<h2 id="ch16">Chapter 16 : Regression &amp; Machine Learning</h2>
 <p class="subtitle">caret/tidymodels → scikit-learn.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Separate preprocessing, fitting and evaluation.</li><li>Prevent train/test leakage.</li><li>Evaluate models against a meaningful baseline.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>The most important scikit-learn habit is the <code>Pipeline</code>: transformations learned from data must be fitted only on training folds. Use cross-validation for model selection, keep a final holdout when appropriate, and choose metrics that reflect the decision cost. <span class="pitfall">High-risk trap</span>: preprocessing the full dataset before splitting leaks information.</p></div>
+
 
 <div class="code-compare">
   <div class="code-panel">
@@ -1620,8 +2242,13 @@ print(f"R² = {r2_score(y_test, preds):.3f}")</code></pre>
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch17">Chapter 17 — Functions &amp; Scripts</h2>
-<p class="subtitle">Writing reusable code — functions, error handling, and CLI scripts.</p>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Build a pipeline with imputation, encoding/scaling where needed, and a model. Evaluate it with cross-validation and compare it with a simple baseline before tuning hyperparameters.</p></div>
+<h2 id="ch17">Chapter 17 : Functions &amp; Scripts</h2>
+<p class="subtitle">Writing reusable code : functions, error handling, and CLI scripts.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Turn notebook logic into reusable functions and modules.</li><li>Use type hints, docstrings and clear interfaces.</li><li>Separate pure transformations from I/O.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>Functions become easier to test when they return values instead of mutating hidden global state. Prefer small functions with explicit inputs, deterministic behaviour and clear failure modes. Use <code>pathlib</code> for paths and a <code>main()</code> entry point for scripts. <span class="production">Production habit</span>: notebooks are excellent for exploration; modules are better for reusable logic.</p></div>
+
 
 <h3>17.1 Functions</h3>
 <div class="code-compare">
@@ -1692,7 +2319,7 @@ finally:
 
 <h3>17.3 Command-Line Scripts</h3>
 <div class="code-single">
-<div class="code-label">PYTHON — CLI script with argparse</div>
+<div class="code-label">PYTHON : CLI script with argparse</div>
 <pre><code>#!/usr/bin/env python3
 """ETL script that can be run from the command line."""
 import argparse
@@ -1718,8 +2345,13 @@ if __name__ == "__main__":
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch18">Chapter 18 — Packaging &amp; Environments</h2>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Move one notebook transformation into a typed function. Write three tests: normal input, empty input and malformed input. Then call the function from both a notebook and a script.</p></div>
+<h2 id="ch18">Chapter 18 : Packaging &amp; Environments</h2>
 <p class="subtitle">renv → venv/pip, R packages → Python packages.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Make environments reproducible across machines.</li><li>Understand package metadata and project layout.</li><li>Pin dependencies at the right level of strictness.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>Reproducibility has layers: Python version, direct dependencies, transitive dependencies, operating-system libraries and external services. A lock file gives stronger repeatability than a loose dependency list, while libraries often need broader version ranges than applications. <span class="pitfall">Common trap</span>: “works on my machine” often means the environment was never specified.</p></div>
+
 
 <h3>18.1 Virtual Environments</h3>
 <div class="code-compare">
@@ -1742,7 +2374,7 @@ pip install -r requirements.txt # reproduce</code></pre>
 
 <h3>18.2 Project Structure</h3>
 <div class="code-single">
-<div class="code-label">PYTHON — Standard project layout</div>
+<div class="code-label">PYTHON : Standard project layout</div>
 <pre><code>my_project/
 ├── data/
 │   ├── raw/              # never modify raw data
@@ -1762,8 +2394,13 @@ pip install -r requirements.txt # reproduce</code></pre>
 </div>
 
 <!-- ════════════════════════════════════════════════ -->
-<h2 id="ch19">Chapter 19 — Complete Cheat Sheet</h2>
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Create a minimal project with <code>src/</code>, <code>tests/</code>, a project metadata file and a README. Install it into a clean environment and run the tests from outside the project directory.</p></div>
+<h2 id="ch19">Chapter 19 : Complete Cheat Sheet</h2>
 <p class="subtitle">The full R → Python translation table. Bookmark this.</p>
+<div class="learning-box"><div class="enrich-title">Learning objectives</div><ul><li>Use the cheat sheet as retrieval, not as a substitute for concepts.</li><li>Recognise the highest-risk R→Python differences.</li><li>Know which production habits deserve memorisation.</li></ul></div>
+<div class="depth-box"><div class="enrich-title">Why this matters in real work</div><p>The cheat sheet should foreground the differences most likely to create wrong results: indexing, boolean operators, index alignment, join cardinality, missing values, groupby output shape, date parsing and train/test leakage. Syntax lookup is easy; <span class="key-highlight">semantic differences are what deserve highlighting.</span></p></div>
+
 
 <div class="table-wrap">
 <table>
@@ -1801,9 +2438,11 @@ pip install -r requirements.txt # reproduce</code></pre>
 
 <div class="callout callout-tip">
   <div class="callout-title">You've Got This</div>
-  You already have the hardest part — the <strong>analytical thinking</strong>. Python is just new syntax on familiar concepts. Start by rewriting one R script in Python, then keep going. Every tidyverse verb has a pandas equivalent, and you now have the map.
+  You already have the hardest part : the <strong>analytical thinking</strong>. Python is just new syntax on familiar concepts. Start by rewriting one R script in Python, then keep going. Every tidyverse verb has a pandas equivalent, and you now have the map.
 </div>
 
+
+<div class="exercise-box"><div class="enrich-title">Practice challenge</div><p>Pick ten R operations from your own work and add them to the cheat sheet with: Python equivalent, return type, one gotcha and one tiny test case.</p></div>
 <div style="text-align: center; margin-top: 48px; padding: 32px; color: var(--text-muted); font-size: 14px;">
   <p style="font-family: var(--font-mono); font-size: 12px;">Built for Meron · R → Python · 2026</p>
 </div>
