@@ -219,36 +219,12 @@ Particular attention is given to differences that can produce incorrect results,
 * Row-wise operations versus vectorisation
 * Train/test leakage in machine learning
 
-## From Analysis to Production
 
-The later sections progressively move beyond interactive analysis toward production-oriented Python.
+## ☕ Support
 
-The guide introduces patterns such as:
+If you find Focusboard helpful, consider buying me a coffee!
 
-```python
-def extract(...):
-    ...
+<a href="https://buymeacoffee.com/qhl34mcne4">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" height="60" width="217">
+</a>
 
-def transform(...):
-    ...
-
-def validate(...):
-    ...
-
-def load(...):
-    ...
-
-def main():
-    ...
-```
-
-It then builds on these with logging, validation rules, reusable modules, testing, environment management, automated cleaning, batch processing, and scheduling.
-
-The aim is not simply to reproduce an R script in Python. It is to show how Python can extend an analyst's existing skills into data engineering, automation, machine learning, APIs, and production workflows.
-
-
-```
-
-You do not need to abandon R to become productive in Python.
-
-The goal is to make the two ecosystems complementary: use the analytical intuition you already developed with the tidyverse, while adding Python's broader ecosystem for automation, engineering, machine learning, APIs, and production data workflows.
