@@ -246,54 +246,7 @@ It then builds on these with logging, validation rules, reusable modules, testin
 
 The aim is not simply to reproduce an R script in Python. It is to show how Python can extend an analyst's existing skills into data engineering, automation, machine learning, APIs, and production workflows.
 
-## Quick Reference
 
-The guide concludes with a comprehensive R to Python cheat sheet covering common operations across:
-
-* `dplyr`
-* `tidyr`
-* `stringr`
-* `lubridate`
-* `purrr`
-* `ggplot2`
-* pandas
-* NumPy
-* matplotlib
-* seaborn
-* scipy
-* statsmodels
-* scikit-learn
-
-Use the cheat sheet for syntax lookup, and the main chapters for the conceptual differences, failure modes, examples, and production patterns behind that syntax.
-
-## Suggested Learning Path
-
-If you already use the tidyverse regularly, a practical path through the guide is:
-
-```text
-Python foundations
-        ↓
-pandas fundamentals
-        ↓
-select / filter / mutate / groupby
-        ↓
-joins and reshaping
-        ↓
-strings and dates
-        ↓
-data preprocessing and cleaning
-        ↓
-automated cleaning
-        ↓
-ETL pipelines
-        ↓
-SQL and APIs
-        ↓
-visualisation and statistics
-        ↓
-machine learning
-        ↓
-production Python
 ```
 
 You do not need to abandon R to become productive in Python.
