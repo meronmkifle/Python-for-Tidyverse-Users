@@ -1,8 +1,30 @@
 # Python for Tidyverse Users
 
-A practical, side-by-side guide for translating R and tidyverse fluency into Python and pandas, from your first Python session through data cleaning, automated ETL pipelines, statistical analysis, machine learning, and production workflows.
+An interactive, self-paced R-to-Python learning academy combining a comprehensive tidyverse-to-pandas reference, browser-based coding labs, instant-feedback quizzes, and realistic healthcare research exercises inspired by UK Biobank, Hospital Episode Statistics (HES), and the Clinical Practice Research Datalink (CPRD). It spans Python foundations, data wrangling and cleaning, ETL, SQL, APIs, visualisation, statistics, machine learning, and reproducible research workflows.
 
-<img width="569" height="194" alt="Python for Tidyverse Users" src="https://github.com/user-attachments/assets/771130b4-facf-4e97-9efc-5e59e230fc5a" />
+![Python for Tidyverse Users — course snapshot](Course%20snapshot.png)
+
+## Start the Interactive Academy
+
+**[Open the interactive course](https://meronmkifle.github.io/Python-for-Tidyverse-Users/)** · **[View the complete single-file HTML](index.html)**
+
+The course preserves the original in-depth textbook and adds an interactive learning experience:
+
+- **20 core chapters** with progressive explanations and side-by-side R / tidyverse and Python / pandas examples.
+- **22 healthcare practical labs** with editable Python code and in-browser execution using Pyodide (internet access is required to load the runtime and packages).
+- **20 interactive chapter quizzes**, with immediate feedback and explanations, alongside worked exercises.
+- **Synthetic UK Biobank-, HES-, and CPRD-style examples** for cleaning, joining, cohort definition, admissions, and longitudinal research. These are teaching datasets, not patient records from those sources.
+- **A cohort-selection simulator, searchable R-to-Python reference, learning dashboard, and progress tracking**, plus embedded examples, datasets and charts.
+- **End-to-end analytics material**, from data preprocessing and automated ETL through SQL, APIs, statistics, machine learning and production workflows.
+
+The course is distributed as **one comprehensive `index.html` file**. The teaching content is embedded; browser-side Python execution requires online runtime dependencies. Some specialist libraries and workflows may require a local Python setup, and not every exercise has automated grading.
+
+### How to use the course
+
+1. **Learn:** read a concept, inspect a worked example, and compare the equivalent tidyverse syntax.
+2. **Practice:** edit and run supported Python lab examples; review quiz feedback and worked answers.
+3. **Apply:** explore realistic cleaning, linkage, cohort-construction and data-quality tasks with synthetic healthcare records.
+4. **Go deeper:** use the full chapters, cheat sheet, reproducibility guidance and advanced workflow discussions.
 
 ## Who This Is For
 
