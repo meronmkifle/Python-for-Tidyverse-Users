@@ -6,7 +6,7 @@ An interactive, self-paced R-to-Python learning academy combining a comprehensiv
 
 ## Start the Interactive Academy
 
-**[Open the interactive course](https://meronmkifle.github.io/Python-for-Tidyverse-Users/)** · **[View the complete single-file HTML](index.html)**
+**[Open the interactive course](https://meronmkifle.github.io/Python-for-Tidyverse-Users/)** 
 
 The course preserves the original in-depth textbook and adds an interactive learning experience:
 
