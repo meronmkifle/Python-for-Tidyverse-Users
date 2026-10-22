@@ -1,230 +1,151 @@
-# Python for Tidyverse Users
+# R for Social Scientists: Interactive Academy
 
-An interactive, self-paced R-to-Python learning academy combining a comprehensive tidyverse-to-pandas reference, browser-based coding labs, instant-feedback quizzes, and realistic healthcare research exercises inspired by UK Biobank, Hospital Episode Statistics (HES), and the Clinical Practice Research Datalink (CPRD). It spans Python foundations, data wrangling and cleaning, ETL, SQL, APIs, visualisation, statistics, machine learning, and reproducible research workflows.
+An interactive, self-paced edition of Sofia Gil-Clavel's eleven-session course **R for Social Scientists**, rebuilt as a single-file learning academy. Every session keeps its original content and adds side-by-side Python translations, instant-feedback knowledge checks, browser-based coding labs in both R and Python, and applied exercises on synthetic health and social policy data: area deprivation, transport access, a community transport grant programme, and emergency hospital admissions.
 
-![Python for Tidyverse Users — course snapshot](Course%20snapshot.png)
+It spans data frames and the tidyverse, visualisation, unsupervised and supervised learning, statistics, text as data, text mining, machine learning for text, programming and APIs, parallelisation, and building an R package.
+
+![R for Social Scientists Academy: course snapshot](Course%20snapshot.png)
 
 ## Start the Interactive Academy
 
-**[Open the interactive course](https://meronmkifle.github.io/Python-for-Tidyverse-Users/)** 
+**[Open the interactive course](REPLACE-WITH-YOUR-GITHUB-PAGES-URL)**
 
-The course preserves the original in-depth textbook and adds an interactive learning experience:
+The academy preserves the original course structure and adds an interactive learning layer:
 
-- **20 core chapters** with progressive explanations and side-by-side R / tidyverse and Python / pandas examples.
-- **22 healthcare practical labs** with editable Python code and in-browser execution using Pyodide (internet access is required to load the runtime and packages).
-- **20 interactive chapter quizzes**, with immediate feedback and explanations, alongside worked exercises.
-- **Synthetic UK Biobank-, HES-, and CPRD-style examples** for cleaning, joining, cohort definition, admissions, and longitudinal research. These are teaching datasets, not patient records from those sources.
-- **A cohort-selection simulator, searchable R-to-Python reference, learning dashboard, and progress tracking**, plus embedded examples, datasets and charts.
-- **End-to-end analytics material**, from data preprocessing and automated ETL through SQL, APIs, statistics, machine learning and production workflows.
+- **13 chapters**: a course overview, the 11 original sessions and the extra session on building a package. Each has learning objectives from the original lesson plans, a summary of the original slides and scripts, and side-by-side R / tidyverse and Python / pandas examples.
+- **13 applied chapter labs and 10 practicum labs**, editable and runnable in the browser in **either R (webR) or Python (Pyodide)**. Switch language per lab or set a default for the whole course. Internet access is required on first use to load each runtime and its packages.
+- **13 knowledge checks** with immediate feedback and explanations, plus "check your understanding" questions with worked answers.
+- **A Part II practicum** that walks through evaluating a community transport grant programme, from checking keys to publishing a disclosure-safe table, with 20 worked examples in each language.
+- **A capstone**: first respiratory emergency admission by deprivation quintile, with a washout, censoring, person-time denominators and a rate ratio. The code checks its own results in both languages.
+- **A cohort simulator, a searchable R ↔ Python reference (49 translations), a learning dashboard and progress tracking**, plus embedded datasets and downloadable companion scripts.
 
-The course is distributed as **one comprehensive `index.html` file**. The teaching content is embedded; browser-side Python execution requires online runtime dependencies. Some specialist libraries and workflows may require a local Python setup, and not every exercise has automated grading.
+The course is distributed as **one self-contained `index.html` file**. Lessons, data and quizzes are embedded; only code execution needs the online runtimes. The companion R and Python scripts run every lab locally if you prefer RStudio, VS Code or Jupyter.
 
 ### How to use the course
 
-1. **Learn:** read a concept, inspect a worked example, and compare the equivalent tidyverse syntax.
-2. **Practice:** edit and run supported Python lab examples; review quiz feedback and worked answers.
-3. **Apply:** explore realistic cleaning, linkage, cohort-construction and data-quality tasks with synthetic healthcare records.
-4. **Go deeper:** use the full chapters, cheat sheet, reproducibility guidance and advanced workflow discussions.
+1. **Learn:** read the summary of the original session and the learning objectives.
+2. **Compare:** read the R and Python versions side by side, and the trap that changes results between them.
+3. **Practise:** run the applied lab in R, switch to Python, and confirm you get the same answer.
+4. **Apply:** work through the practicum labs and the capstone on the synthetic cohort.
+5. **Check:** answer the knowledge check, attempt the practice challenge, and mark the chapter complete.
 
 ## Who This Is For
 
-This guide is designed for data analysts, researchers, data scientists, and other R users who already work comfortably with the tidyverse and want to become productive in Python without relearning data analysis from the beginning.
+The original course was designed for academics at every career stage, from PhD students to professors, including qualitative researchers who have never used R and quantitative researchers moving from SPSS or Stata.
 
-If you already know `dplyr`, `tidyr`, `ggplot2`, `stringr`, `lubridate`, or `purrr`, many of the underlying concepts will already be familiar.
+This edition also serves:
 
-The focus is therefore not just on teaching Python syntax. The guide shows how familiar R workflows translate into Python, where the two ecosystems behave differently, which differences can cause real bugs, and how to move from exploratory analysis toward reliable and automated data workflows.
+- **Analysts and evaluators in health and social policy** who want a method grounded in realistic data problems: deprivation gradients, missing follow-up, censoring, confounded programme comparisons and small-number suppression.
+- **R users learning Python, and Python users learning R**, because every lab is written in both languages and gives the same result.
 
-## What Makes This Guide Different
+## What Makes This Edition Different
 
-Rather than presenting Python as an entirely new way of thinking, the guide uses R and the tidyverse as the reference point.
-
-Where useful, concepts are presented side by side:
+- **Two languages, one answer.** Every chapter lab, practicum example and the capstone was run in R and Python and produces the same numbers. Where results legitimately differ, the page says why.
+- **Defaults that change results are named.** For example:
 
 ```text
-R / tidyverse                Python / pandas
-
-filter()                     query() / boolean masks
-select()                     column selection
-mutate()                     assign()
-group_by()                   groupby()
-summarise()                  agg()
-pivot_longer()               melt()
-pivot_wider()                pivot_table()
-left_join()                  merge()
-stringr                      .str
-lubridate                    .dt / pandas datetime
-purrr                        comprehensions / apply / map
+R                                    Python                               Watch for
+mean(x)                              s.mean()                             pandas skips NA by default; R returns NA
+glm(y ~ x, family = binomial)        LogisticRegression()                 scikit-learn adds an L2 penalty by default
+tidytext::bind_tf_idf()              TfidfVectorizer()                    different (smoothed) idf formula
+prcomp(X, scale. = TRUE)             PCA() on StandardScaler()            component signs are arbitrary
+set.seed(1)                          default_rng(1)                       different generators, different draws
+left_join(..., relationship =        merge(..., validate=                 declare cardinality so duplicates raise
+  "many-to-one")                       "many_to_one")
 ```
 
-The guide also goes beyond syntax translation by covering data quality, preprocessing, automation, validation, testing, reproducibility, and production considerations.
+- **Applied, not toy, examples.** Labs ask the questions a real evaluation asks: what one row means, who is missing, how long each person was followed, and whether a comparison group differs before the programme started.
 
 ## What's Covered
 
-| Section                           | Topics                                                                                                                                                                                                                                   |
-| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Foundations**                   | Python setup, environments, syntax differences, 0-based indexing, indentation, method chaining, data types, lists, dictionaries, tuples, NumPy arrays, Series, and DataFrames                                                            |
-| **Data Wrangling**                | `dplyr` to pandas mappings for selecting, filtering, mutating, summarising, grouping, joins, reshaping, strings, dates, categoricals, and window operations                                                                              |
-| **Data Preprocessing & Cleaning** | Data profiling, schema checks, column standardisation, text cleaning, numeric conversion, currency parsing, date parsing, missing values, duplicate detection, category harmonisation, validation, invalid records, and outlier flagging |
-| **Automated Data Cleaning**       | Reusable cleaning functions, cleaning reports, rejected-record quarantine, configuration-driven rules, batch processing, idempotence, logging, testing, and scheduled cleaning jobs                                                      |
-| **ETL & Pipelines**               | Extract, transform, validate, and load patterns, data-quality checks, reproducible transformations, auditability, logging, failure handling, and end-to-end pipeline design                                                              |
-| **APIs & Web Scraping**           | REST APIs, authentication, pagination, HTTP errors, timeouts, retries, rate limits, JSON processing, BeautifulSoup, and HTML table extraction                                                                                            |
-| **SQL from Python**               | Database connections, SQLAlchemy, pandas SQL workflows, parameterised queries, database-side aggregation, and deciding what belongs in SQL versus pandas                                                                                 |
-| **Visualisation**                 | `ggplot2` concepts translated to matplotlib and seaborn, chart design, annotations, analytical storytelling, and Plotly interactive visualisations                                                                                       |
-| **Statistics**                    | Hypothesis tests, assumptions, effect sizes, confidence intervals, statistical significance, practical significance, and regression with statsmodels                                                                                     |
-| **Machine Learning**              | scikit-learn preprocessing, train/test splits, pipelines, cross-validation, leakage prevention, model evaluation, baselines, and reproducible modelling                                                                                  |
-| **Production Python**             | Functions, modules, type hints, docstrings, error handling, CLI scripts, project structure, virtual environments, dependency management, testing, and reproducibility                                                                    |
-| **Cheat Sheet**                   | A quick R to Python reference for common tidyverse and pandas operations                                                                                                                                                                 |
+| Block | Session | Topics |
+| --- | --- | --- |
+| **Foundations** | 0. How the course fits together | Course map, project setup with `renv` and `venv`, framing an analysis by population, exposure, outcome and time window |
+| **Data handling** | 1. Data frames | Data types, vectors, indexing, reading and saving data, identifier types and leading zeros |
+| | 2. Tidyverse | Packages, the dplyr verbs, the pipe, grouped summaries, missing-value defaults |
+| **Exploratory analysis** | 3. Data visualisation | Grammar of graphics, geoms, scales, facets, themes, denominators on charts; ggplot2, plotnine and matplotlib |
+| | 4. Unsupervised learning | Standardisation, PCA, variance explained, k-means, area typologies |
+| **Machine learning** | 5. Statistics | Formula notation, `lm`, outliers, assumptions, confidence intervals, interactions, ANOVA, prediction, `glm`; statsmodels equivalents |
+| | 6. Supervised learning | Logistic regression, LDA, train/test splits, cross-validation, majority-class baselines, leakage |
+| **Text analysis** | 7. Text as data | stringr, encodings, tokenising, stop words, stemming, word frequencies |
+| | 8. Text mining | tf-idf, n-grams, word correlations, networks, part-of-speech tagging |
+| | 9. Machine learning for text | Text recipes, topic models, naive Bayes classification, resampled metrics |
+| **Code optimisation** | 10. Basic programming | APIs with httr2 and requests, functions, conditions, loops, error handling, retries |
+| | 11. Servers and parallelisation | Vectorisation, apply family, `future`, `foreach`, joblib, bootstrap timing, reproducible parallel seeds |
+| **Extra** | A. Building a package | DESCRIPTION, roxygen2, testthat, devtools; `pyproject.toml` and pytest |
 
-## Data Cleaning and Preprocessing
+## Part II Practicum: Evaluating a Community Transport Grant Programme
 
-A major focus of the guide is moving from one-off cleaning commands to systematic and reproducible data preparation.
-
-The cleaning workflow follows a practical pattern:
-
-```text
-Raw data
-   ↓
-Profile the data
-   ↓
-Standardise schema and column names
-   ↓
-Clean text and categories
-   ↓
-Parse dates and numeric values
-   ↓
-Handle missing data
-   ↓
-Detect duplicates
-   ↓
-Validate business rules
-   ↓
-Flag or quarantine invalid records
-   ↓
-Enrich and transform
-   ↓
-Validate again
-   ↓
-Write trusted output
-   ↓
-Produce an audit / cleaning report
-```
-
-Examples include deliberately messy data so that cleaning techniques are demonstrated in context rather than only through isolated functions.
-
-Topics include:
-
-* Profiling missingness, cardinality, types, and distributions
-* Defining the grain of a dataset
-* Identifying business keys
-* Standardising inconsistent column names
-* Cleaning whitespace and text casing
-* Parsing dirty currency and numeric fields
-* Handling mixed and invalid date formats
-* Treating missing values according to their business meaning
-* Detecting exact and key-based duplicates
-* Distinguishing invalid values from genuine outliers
-* Harmonising inconsistent categorical values
-* Validating pattern-based fields such as email addresses
-* Preserving rejected records for investigation
-* Producing cleaning metrics and audit information
-
-## Automating Data Cleaning
-
-The guide also demonstrates how exploratory cleaning code can be converted into reusable automation.
-
-Instead of repeatedly running notebook cells manually, cleaning logic can be packaged into functions such as:
-
-```python
-clean, report = clean_orders(raw)
-```
-
-The resulting workflow can track:
+The practicum follows one evaluation from raw tables to a publishable result:
 
 ```text
-Input rows
-Output rows
-Rejected rows
-Invalid dates
-Invalid numeric values
-Duplicates removed
-Validation failures
+Check keys and the unit of analysis
+   ↓
+Join area data without multiplying rows
+   ↓
+Profile missing follow-up by deprivation
+   ↓
+Derive access groups and age bands
+   ↓
+Build follow-up time with censoring
+   ↓
+Deduplicate episodes into admissions
+   ↓
+Compute rates per 1,000 person-years
+   ↓
+Check baseline balance between groups
+   ↓
+Estimate adjusted and standardised effects
+   ↓
+Apply small-number suppression
+   ↓
+Capstone: incident respiratory admissions by deprivation
 ```
 
-The automation sections cover reusable cleaning functions, configuration-driven rules, processing multiple files, structured logging, rejected-record handling, idempotent transformations, automated tests, and scheduled execution.
+Each lab has two worked examples in R and Python, an editable runner, a quick check, and a prompt to change the data and predict the result.
 
-The goal is to move from:
+## Synthetic Data
 
-```text
-"I cleaned this dataset"
-```
+All records are invented and generated with a fixed seed. Field names are illustrative and do not follow the official IMD, HES or DfT schemas.
 
-to:
+| Table | Rows | Contents |
+| --- | --- | --- |
+| `people` | 600 | Age, sex, disability, car access, programme participation, wellbeing at baseline and follow-up, missed appointments, exit date, fixed train/test split |
+| `areas` | 40 | IMD decile, rurality, travel time to GP, bus frequency, car ownership, age structure, connectivity score |
+| `admissions` | 931 | Emergency admission episodes 2019 to 2024 with diagnosis codes, including same-day duplicates and records after exit |
+| `feedback` | 240 | Free-text comments from programme participants, coded by theme |
+| `credhist` | 500 | `CredHist.csv` from the original course |
 
-```text
-"I have a reproducible process that cleans this dataset,
-checks its assumptions, records what changed, and fails
-clearly when the data no longer satisfies its contract."
-```
+The data include deliberate problems (missing ages, missing follow-up, duplicate episodes, events after exit) so that the cleaning and validation steps have something real to catch. A browser runtime is not an approved environment for real patient or participant data.
 
-## Running Examples
+## Running Locally
 
-Where possible, the guide uses running examples rather than disconnected snippets.
+1. Open the course and go to **Data and downloads**.
+2. Download the five CSVs and the companion script for your language.
+3. Put them in one folder and run the script.
 
-For example, a deliberately messy customer-orders dataset is progressively:
+R needs `dplyr`, `tidyr`, `stringr` and `ggplot2`. Python needs `pandas`, `numpy`, `matplotlib`, `scikit-learn` and `statsmodels`.
 
-1. Profiled
-2. Standardised
-3. Parsed
-4. Cleaned
-5. Validated
-6. Deduplicated
-7. Split into accepted and rejected records
-8. Processed through reusable functions
-9. Tested
-10. Written to a trusted output format
+## Known Limitations
 
-This makes it easier to understand how individual pandas operations fit together into a realistic workflow.
+- The original Sessions 3 and 11 shipped with slides only; their code in this edition is reconstructed from the slides.
+- Session 10's API examples use postcodes.io in place of the original Guardian API and are not run in the browser.
+- Parallel back-ends are not available in the browser runtimes, so the Session 11 lab compares loop and vectorised code; the parallel examples are shown for local use.
+- Synthetic admission rates are deliberately high so a small cohort has enough events for the examples; they are not realistic estimates.
+- Not every exercise has automated grading.
 
-## R to Python Mental Model
+## Credits and Licence
 
-The central idea is that your analytical thinking already transfers.
+This edition adapts:
 
-You already understand concepts such as:
+> Gil-Clavel, S. (2025). *R-Course: R for Social Scientists* (Version 1.0) [Data set]. https://github.com/SofiaG1l/R_Course/. https://doi.org/10.5281/zenodo.17184812
 
-* Tidy data
-* Filtering
-* Grouping
-* Aggregation
-* Joins
-* Reshaping
-* Vectorised operations
-* Missing data
-* Statistical modelling
-* Reproducible analysis
-
-Python introduces different syntax and some important semantic differences, but the analytical foundations remain useful.
-
-Particular attention is given to differences that can produce incorrect results, including:
-
-* 0-based indexing
-* Start-inclusive and end-exclusive slicing
-* Scalar versus vectorised boolean operators
-* Series versus DataFrame behaviour
-* Index alignment
-* `.loc` versus `.iloc`
-* Missing-value semantics
-* Join cardinality
-* `groupby().agg()` versus `groupby().transform()`
-* Datetime parsing
-* Row-wise operations versus vectorisation
-* Train/test leakage in machine learning
-
+The original course is released under the MIT licence. The Python translations, labs, practicum, capstone, synthetic data and interactive layer were added by Meron Kifle. If you use this material, please cite the original course.
 
 ## ☕ Support
 
-If you find Focusboard helpful, consider buying me a coffee!
+If you find this course helpful, consider buying me a coffee!
 
 <a href="https://buymeacoffee.com/qhl34mcne4">
   <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" height="60" width="217">
 </a>
-
